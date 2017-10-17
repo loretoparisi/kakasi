@@ -24,6 +24,13 @@ echo "日本が好きです。" | iconv -f utf8 -t eucjp | kakasi -i euc -w | ka
 nippon ga suki desu .
 ```
 
+## Supported Charset
+Character Sets:
+
+a: ascii  j: jisroman  g: graphic  k: kana (j,k     defined in jisx0201)
+
+E: kigou  K: katakana  H: hiragana J: kanji(E,K,H,J defined in jisx0208)
+
 ## Help
 ```
 Usage: kakasi -a[jE] -j[aE] -g[ajE] -k[ajKH] -E[aj] -K[ajkH] -H[ajkKH] -J[ajkKH]
