@@ -31,6 +31,15 @@ a: ascii  j: jisroman  g: graphic  k: kana (j,k     defined in jisx0201)
 
 E: kigou  K: katakana  H: hiragana J: kanji(E,K,H,J defined in jisx0208)
 
+
+## Dictionaries
+Dictionaries after installation with `make install` are available at `/usr/local/share/kakasi/kanwadict` and `/usr/local/share/kakasi/itaijidict`. To copy the dictionaries in another location, please set your env:
+
+```bash
+export ITAIJIDICTPATH=./itaijidict
+export KANWADICTPATH=./kanwadict
+```
+
 ## Help
 ```
 Usage: kakasi -a[jE] -j[aE] -g[ajE] -k[ajKH] -E[aj] -K[ajkH] -H[ajkKH] -J[ajkKH]
