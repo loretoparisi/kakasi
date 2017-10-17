@@ -24,6 +24,39 @@ echo "日本が好きです。" | iconv -f utf8 -t eucjp | kakasi -i euc -w | ka
 nippon ga suki desu .
 ```
 
+## Examples
+Conversion using iconv
+```
+echo "退屈であくびばっかしていた毎日" | iconv -f utf8 -t eucjp | kakasi -i euc -Ha -Ka -Ja -Ea -ka -s
+taikutsu deakubibakkashiteita mainichi
+```
+
+Convertion from Unicode to Shift-JIS
+```
+echo "7月31日" | iconv -f utf8 -t shift-jis | kakasi -Ja -Ha -Ka -Ea -s 
+```
+
+Conversion from Shift-JIS to Unicode
+```
+echo "7月31日" | iconv -f utf8 -t shift-jis | kakasi -Ja -Ha -Ka -Ea -s | iconv -f shift-jis -t utf8
+
+7 gatsu 31 nichi
+```
+
+To convert into Hiragana:
+```
+echo "7月31日" | iconv -f utf8 -t shift-jis | kakasi -JH -KH -Ea -s | iconv -f shift-jis -t utf8
+
+7 がつ 31 にち
+```
+
+Using utf-8 input and output parameters
+```
+echo "7月31日" | kakasi -JH -KH -Ea -s -iutf8 -outf8
+
+7 がつ 31 にち
+```
+
 ## Supported Charset
 Character Sets:
 
