@@ -1,0 +1,42 @@
+				KAKASI
+		  漢字→かな(ローマ字)変換プログラム
+
+KAKASI は、漢字かなまじり文をひらがな文やローマ字文に変換することを目
+的として作成したプログラムと辞書の総称です。
+
+"KAKASI" という名称は、"kanji kana simple inverter" の略です。また、東
+北大学(現: 京都大学)の佐藤雅彦先生によって開発された SKK - simple kana
+kanji converter を逆から読んだものでもあります。KAKASI の辞書のエント
+リのほとんどは SKK 辞書起源のものです。
+
+KAKASI キットは、C プログラムと数種の辞書を含みます。辞書 "kakasidict" 
+のファイルサイズは非常に大きいため、しばしば "kakasidict.YYMMDD.gz" と
+いう名前で別に配布されます。
+
+
+KAKASI はフリーソフトウェアです。あなたは、Free Software Foundation が
+公表した GNU General Public License (GNU 一般公有使用許諾) バージョン 
+2 あるいはそれ以降の各バージョンの中からいずれかを選択し、そのバージョ
+ンが定める条項に従って本プログラムを再頒布または変更することができます。
+
+KAKASI は有用とは思いますが、頒布にあたっては、市場性及び特定目的適合
+性についての暗黙の保証を含めて、いかなる保証も行ないません。詳細につい
+ては GNU General Public License をお読みください。
+
+このバージョンのリリースにおける、主な変更点に付きましては、NEWS とい
+うファイルをご覧下さい。コンパイルおよびインストール方法については 
+INSTALL-ja というファイルをご覧下さい。
+
+最新の KAKASI は次のところから入手できます。
+
+	ftp://kakasi.namazu.org/pub/kakasi/
+
+KAKASI に関する情報は次のところから得ることができます。
+
+	http://kakasi.namazu.org/
+
+コメントやバグの報告は
+
+	bug-kakasi@namazu.org
+
+宛に、日本語か英語でお送り下さい。

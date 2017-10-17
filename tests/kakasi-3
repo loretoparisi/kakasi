@@ -1,0 +1,57 @@
+#!/bin/sh -e
+#
+# test for romaji conversion (hepburn/kunrei)
+#
+# $Id: kakasi-3,v 1.3 2013-10-17 06:32:32 knok Exp $
+
+LOG=`pwd`/test-log
+echo '  *** starting ' $0 >> $LOG
+
+. ./env.sh
+
+romacheck () {
+	KAKASI=../src/kakasi
+
+	echo 'hira to roma' >> $LOG
+	opt=$1
+	ret=`echo $hira | $KAKASI $opt -ieuc -Ha`
+	if [ ! "x$ret" = "x$roma" ]
+	then
+		echo "failed." >> $LOG
+		echo "opt: $opt" >> $LOG
+		echo "input: $hira" >> $LOG
+		echo "output: $ret" >> $LOG
+		exit 1
+	fi
+
+	echo 'kata to roma' >> $LOG
+	ret=`echo $kata | $KAKASI $opt -ieuc -Ka`
+	if [ ! "x$ret" = "x$roma" ]
+	then
+		echo "failed." >> $LOG
+		echo "opt: $opt" >> $LOG
+		echo "input: $kata" >> $LOG
+		echo "output: $ret" >> $LOG
+		exit 1
+	fi
+}
+
+
+# hepburn
+hira='¤Â ¤Â¤ã ¤Â¤å ¤Â¤ç ¤Ã¤Á ¤Ã¤Á¤ã ¤Ã¤Á¤å ¤Ã¤Á¤ç ¤Ã¤Â ¤Ã¤Â¤ã ¤Ã¤Â¤å ¤Ã¤Â¤ç'
+kata='¥Â ¥Â¥ã ¥Â¥å ¥Â¥ç ¥Ã¥Á ¥Ã¥Á¥ã ¥Ã¥Á¥å ¥Ã¥Á¥ç ¥Ã¥Â ¥Ã¥Â¥ã ¥Ã¥Â¥å ¥Ã¥Â¥ç'
+roma='ji ja ju jo tchi tcha tchu tcho jji jjya jjyu jjyo'
+
+romacheck -rh
+
+# kunrei
+roma='di dya dyu dyo tti ttya ttyu ttyo ddi ddya ddyu ddyo'
+
+romacheck -rk
+
+# old hepburn
+roma='di dya dyu dyo cchi ccha cchu ccho ddi ddya ddyu ddyo'
+
+romacheck '-rh -t'
+
+exit 0

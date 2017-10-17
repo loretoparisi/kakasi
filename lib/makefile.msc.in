@@ -1,0 +1,137 @@
+## Makefile for building the libintl DLL (called kakasi.dll) with
+## Microsoft C.
+
+## Use: nmake -f makefile.msc
+
+# Full optimization:
+OPTIMIZE = /O1
+# Debugging:
+#OPTIMIZE = /Zi
+
+libdir = @prefix@/lib
+dictdir = @prefix@/share/kakasi
+
+KAKASI = ..\src
+KANWADICT = $(dictdir)/kanwadict
+ITAIJIDICT = $(dictdir)/itaijidict
+
+################################################################
+
+# Nothing much configurable below
+
+# cl /? describes the options
+CC = cl /nologo /Gf /W3 $(OPTIMIZE) /MD
+AR = lib /nologo
+
+.SUFFIXES:
+.SUFFIXES: .S .c .lo .o .obj .s
+
+INCLUDES = -I. -I.. -I$(KAKASI)
+
+LDFLAGS = /link
+
+CFLAGS = $(INCLUDES) \
+	-DKANWADICT=\"$(KANWADICT)\" -DITAIJIDICT=\"$(ITAIJIDICT)\" -DLIBRARY -DHAVE_CONFIG_H
+
+kakasi_OBJECTS = \
+	libdict.obj	\
+	libkakasi.obj	\
+	libkanjiio.obj	\
+	liba2.obj	\
+	libg2.obj	\
+	libj2.obj	\
+	libk2.obj	\
+	libee2.obj	\
+	libhh2.obj	\
+	libjj2.obj	\
+	libkk2.obj	\
+	libitaiji.obj	\
+	lib78_83.obj	\
+	liblevel.obj
+
+all : \
+	libkakasi.h	\
+	libkakasi.lib	\
+	kakasi.dll
+
+install : all
+	cp -f libkakasi.lib kakasi.lib kakasi.dll $(libdir)
+#	copy /Y libkakasi.lib $(libdir)
+#	copy /Y kakasi.lib $(libdir)
+#	copy /Y kakasi.dll $(libdir)
+	
+.c.obj :
+	$(CC) $(CFLAGS) -c $<
+
+libdict.c: ..\src\dict.c
+	del /Q /F $@
+	copy /Y ..\src\dict.c $@
+
+libkakasi.c: ..\src\kakasi.c
+	del /Q /F $@
+	copy /Y ..\src\kakasi.c $@
+
+libkanjiio.c: ..\src\kanjiio.c
+	del /Q /F $@
+	copy /Y ..\src\kanjiio.c $@
+
+liba2.c: ..\src\a2.c
+	del /Q /F $@
+	copy /Y ..\src\a2.c $@
+
+libg2.c: ..\src\g2.c
+	del /Q /F $@
+	copy /Y ..\src\g2.c $@
+
+libj2.c: ..\src\j2.c
+	del /Q /F $@
+	copy /Y ..\src\j2.c $@
+
+libk2.c: ..\src\k2.c
+	del /Q /F $@
+	copy /Y ..\src\k2.c $@
+
+libee2.c: ..\src\ee2.c
+	del /Q /F $@
+	copy /Y ..\src\ee2.c $@
+
+libhh2.c: ..\src\hh2.c
+	del /Q /F $@
+	copy /Y ..\src\hh2.c $@
+
+libjj2.c: ..\src\jj2.c
+	del /Q /F $@
+	copy /Y ..\src\jj2.c $@
+
+libkk2.c: ..\src\kk2.c
+	del /Q /F $@
+	copy /Y ..\src\kk2.c $@
+
+libitaiji.c: ..\src\itaiji.c
+	del /Q /F $@
+	copy /Y ..\src\itaiji.c $@
+
+lib78_83.c: ..\src\78_83.c
+	del /Q /F $@
+	copy /Y ..\src\78_83.c $@
+
+liblevel.c: ..\src\level.c
+	del /Q /F $@
+	copy /Y ..\src\level.c $@
+
+libkakasi.lib : $(kakasi_OBJECTS)
+	$(AR) /out:libkakasi.lib $(kakasi_OBJECTS)
+
+kakasi.dll : $(kakasi_OBJECTS) kakasi.def
+	$(CC) $(CFLAGS) /LD /Fekakasi.dll $(kakasi_OBJECTS) $(LDFLAGS) /def:kakasi.def
+
+clean:
+	del /Q /F *.obj
+	del /Q /F *.lib
+	del /Q /F *.dll
+	del /Q /F *.exp
+	del /Q /F *.map
+	del /Q /F *.sym
+	del /Q /F *.pdb
+	del /Q /F *.ilk
+	del /Q /F *.err

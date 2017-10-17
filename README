@@ -1,0 +1,50 @@
+				KAKASI
+      the language processing filter to convert Kanji characters
+		   to Hiragana, Katakana or Romaji
+
+
+KAKASI is the language processing filter to convert Kanji characters
+to Hiragana, Katakana or Romaji(1) and may be helpful to read Japanese
+documents.
+
+The name "KAKASI" is the abbreviation of "kanji kana simple
+inverter" and the inverse of SKK "simple kana kanji converter" which
+is developed by Masahiko Sato at Tohoku University. The most entries
+of the kakasi dictionary is derived form the SKK dictionaries.  If you
+have some interests in the naming of "KAKASI", please consult to
+Japanese-English dictionary. :-)
+
+The kit of KAKASI includes C programs and Several kind of
+dictionaries. The large dictionary "kakasidict" may be provided as
+another file "kakasidict.YYMMDD.gz" since it is often revised and
+really LARGE.
+
+ (1) "Romaji" is alphabetical description of Japanese pronunciation.
+
+
+KAKASI is free software; you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2, or (at your option)
+any later version.
+
+KAKASI is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+See the file NEWS for a list of major changes in the current release.
+See the file INSTALL for compilation and installation instructions.
+
+You can get the latest KAKASI from
+
+	ftp://kakasi.namazu.org/pub/kakasi/
+
+You can get information about KAKASI from
+
+	http://kakasi.namazu.org/
+
+Mail comments and bug reports to
+
+	bug-kakasi@namazu.org
+
+in Japanese or English.

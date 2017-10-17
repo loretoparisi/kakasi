@@ -1,0 +1,20 @@
+Be OS用 KAKASIについて
+
+                                                                                        清水 照久
+                                                                         mailto:teru@angel.ne.jp
+                                                                http://www.angel.ne.jp/~teru
+
+KAKASI-2.2.5本体については同一ディレクトリにある「README.jpn」を参照ください。
+また、srcディレクトリにあるソースコードにはKAKASI-2.2.5 用「わかち書き」パッチが
+に当たった状態になっています。「KAKASI.DOC」を参照ください。
+パッチ内容についてはsrcディレクトリにある「patch.kakasi-2.2.5」を参照ください。
+
+私の作業はBe OS for PPC R4J上でmwccを使用してコンパイル・リンクを通るように
+したことのみです。
+
+○ 注意
+
+   KAKASI は GNU Public Licence のもとで再配布、改変が認められています。
+   詳細については附属の COPYING というファイルを参照してください。
+   KAKASI-2.2.5 用「わかち書き」パッチについても同様です。
+   Be OS用 KAKASIについても同様とします。

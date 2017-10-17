@@ -1,0 +1,14 @@
+LIBRARY "kakasi"
+EXPORTS
+	digest_start_copy
+	put_separator
+	putchars
+	digest_out
+	digest
+	digest_shift
+	setcharbuffer
+	getpbstr
+	kakasi_getopt_argv
+	kakasi_do
+	kakasi_close_kanwadict
+	kakasi_free

@@ -1,0 +1,293 @@
+KAKASI(1)                                               KAKASI(1)
+
+
+
+NNAAMMEE
+       KAKASI  -  Kanji kana simple inverter (between Kanji, both
+       Kana and Romaji)
+
+SSYYNNOOPPSSIISS
+       kkaakkaassii [[ooppttiioonnss]] [[jjiissyyoo11 [[jjiissyyoo22 [[jjiissyyoo11,,,,]]]]]]
+
+DDEESSCCRRIIPPTTIIOONN
+       _K_A_K_A_S_I In Japanese sentences are often made up  a  mixture
+       of   Chinese   characters   (Kanji),  Kana  (Hiragana  and
+       Katakana) and  Romaji  (Latin  phonetical  pronunciation).
+       This program converts between these four different ways of
+       writing Japanese.
+
+       This program is useful for those whose terminal or desktop
+       does  not  support  the  native display of Japanese.  Also
+       this is a great tool for those who are  learning  Japanese
+       (international students and children etc).
+
+       A word can be passed into the standard input (stdin), then
+       it is translated and output to standard out (stdout).   In
+       the following example the "bunchu" Kanji is converted into
+       Hiragana.
+
+
+                 kakasi -JH < document
+
+       Since version 2.3.0 text with spaces in-between words  has
+       been  supported.   In the following example the output has
+       spaces in-between each word.
+
+                 kakasi -w < document
+
+       Since version 2.3.5 level conversion mode  has  been  sup-
+       ported.   In the following example, simple Kanjis are left
+       them unconverted, and difficult Kanjis are translated into
+       Hiragana.
+
+                 kakasi -l4 < document
+
+       _K_A_K_A_S_I  It  is possible to convert letters to alphabetical
+       characters.  Also Katakana letters in the JIS x0201  char-
+       acter  set and the Hiragana in the JIS x0208 character set
+       can be converted between each other.
+
+       _K_A_K_A_S_I The following character set in  brackets  which  is
+       displayed.
+
+
+       ASCII (a) Known as "ascii" character set.
+
+
+       JISROMAN (j)
+                 Known as "jis roman" character set.
+
+
+       GRAPHIC (g)
+                 It is the DEC graphic character set.
+
+
+       Katakana (k)
+                 JIS  x0201,  defined as part of the GR character
+                 set.
+
+
+                 As a matter of convinience, JIS x0208 is divided
+                 as stated below.
+
+
+       Kanji (J)
+                 JIS  x0208 characters included between 16 and 94
+                 sections.
+
+       Hiragana (H)
+                 JIS  x0208  characters  included  in  section  4
+                 (Hiragana)
+
+       Katakana (K)
+                 JIS  x0208  characters  included  in  section  5
+                 (Katakana)
+
+       Sign (E)
+                 JIS  x0208  characters   included   in   section
+                 1,2,3,6,7,  and  8.  (Note that section 9-15 are
+                 undefined in JIS x0208.)
+
+       Translation  between  the  following  character  sets  are
+       available.
+
+
+       ASCII        -> JISROMAN, Sign
+
+       JISROMAN     -> ASCII, Sign
+
+       GRAPHIC      -> ASCII, JISROMAN, Sign
+
+       JISx0201 Katakana
+                    -> ASCII, JISROMAN, Kana, Hiragana
+
+       Sign         -> ASCII, JISROMAN
+
+       Katakana     ->  ASCII, JISROMAN, JISx0201 Katakana, Hira-
+                    gana
+
+       Hiragana     -> ASCII, JISROMAN, JISx0201 Katakana, Kana
+
+       Kanji        -> ASCII, JISROMAN, JISx0201 Katakana,  Kana,
+                    Hiragana
+
+       With conversion of ASCII and the JISROMAN the alphabetical
+       character  conversion  is  done  from  JISx0201  Katakana,
+       Katakana, Hiragana and Kanji.
+
+
+       Example:
+
+           1. All kanji characters are converted to Hiragana.
+
+               kakasi -JH
+
+           2.  All  JIS  x0208  characters are converted to JIS X
+           0201.
+
+
+               kakasi -Hk -Kk -Jk -Ea
+
+           3. All characters are converted to JIS X 0208.
+
+               kakasi -aE -jE -gE -kK
+
+           4. All characters are converted to ascii and words are
+           separated.
+
+               kakasi -Ha -Ka -Ja -Ea -ka
+
+           5.  Exchange between Katakana and Hiragana characters.
+
+               kakasi -HK -KH
+
+
+
+CCOONNVVEERRSSIIOONN DDEESSIIGGNNAATTEEDD CCHHAARRAACCTTEERR SSEETT
+       Some character sets are categorized by  kakasi  and  indi-
+       cated by following mnemonics: a, j, g, k, E, H, K, J.
+
+             a --- ASCII characters
+             j --- JIS ROMAN ( nearly equal to ASCII, "~" and "
+                   different ) defined by JIS x0201
+             g --- DEC Graphic Characters
+             k --- KATAKANA defined by JIS x0201
+
+       E, H, K, and J are included in JIS x0208 character set.
+
+             J --- KANJI characters of JIS x0208.
+             H --- HIRAGANA characters of JIS x0208.
+             K --- KATAKANA characters of JIS x0208.
+             E  ---  Rest  of above characters of JIS x0208 which
+       includes
+                   alphabets, numbers, symbols and so on.
+
+       -(from)(to) means conversion from character set (from)  to
+       (to).  For example, -JK option causes KANJI characters are
+       converted to HIRAGANA. Combinations in the following table
+       are  available.  (You must not remember it, because the -h
+       shows same information)
+
+             toom|    a    j    k    E    H     K    J    g
+             -------+--------------------------------------------
+                a   |    -    o    o1   o    o1    o1   o12  o
+                j   |    o    -    o1   o    o1    o1   o12  o
+                k   |              -         o     o    o2
+                E   |    o    o         -                    o
+                H   |              o         -     o    o2
+                K   |              o         o     -
+
+             o  -- converted.
+             1  -- converted to Romaji.
+             2  -- Kanji -> Kana conversion.
+
+
+KKAANNJJII CCOODDIINNGG CCOONNVVEERRSSIIOONN
+       Unfortunately,  several  coding  systems are used in Japan
+       and JIS x0208 standard are  changed  at  1983.  Therefore,
+       KAKASI can automatically distinguish the coding system and
+       coding revision and then use the same output coding system
+       if  the  document does not include JIS x0201 KATAKANA.  If
+       JIS x0201 KATAKANA is included or you wish to change kanji
+       coding system, you may use the next options.
+
+             -i : input coding
+             -o : output coding
+
+             jis  -- Widely used on the internet. (Ex: fj, jp, ..
+       newsgroups)
+                    Derived from ISO-2022 coding manner.
+                    newjis: JISx0208 (1983) invoked by ESC-$-B.
+                    oldjis: JISx0208 (1978) invoked by ESC-$-@.
+             euc,dec  --  Often  used  in  UNIX  like  computers.
+       JISx0208 is
+                    assigned  to  GR ( MSB is 1 ). The major dif-
+       ference between
+                    euc  and  dec  is  assignment   of   JISx0201
+       KATAKANA and
+                    the DEC graphic character.
+             sjis  --  Defined  by Microsoft Corp. Widely used on
+       the personal
+                    computers ( MSDOS, Mac, .. )
+
+
+RROOMMAAJJII CCOONNVVEERRSSIIOONN
+       Kanji kana  conversion  options.  Used  with  -J?  option.
+       There  are  2  types  of Romaji writing.  The first is the
+       Kunrei method defined by Japanese government, and the sec-
+       ond  is the Hepburn method.  I think Hepburn method sounds
+       naturally to foreigners.
+
+             -rhepburn : Hepburn Method (default)
+             -rkunrei  : Kunrei Method
+
+
+OOTTHHEERR OOPPTTIIOONNSS
+             -p: List all possible readings. If there  exist  two
+       or more
+                 possible  readings,  KAKASI shows them in braces
+       {aaa,bbb}.
+             -s: Insert a separate character between words.
+             -f: Furigana mode. Shows  the  original  kanji  word
+       with reading.
+             -c: Skip characters within word. ( default TAB CR LF
+       BLANK )
+             -C: Capitalize Romaji word (with -Ja or -Jj option)
+             -U: Upcase romaji word (with -Ja or -Jj option)
+             -u: Call fflush().
+             -w: wakatigaki mode. 'wakatigaki' is word  segmenta-
+       tion for
+                 Japanese sentences.
+
+
+
+DDIICCTTIIOONNAARRIIEESS
+       _K_A_K_A_S_I can accept additional dictionary to the system dic-
+       tionary.  The acceptable format of  additional  dictionary
+       is  _S_K_K  format,  and _W_n_n format, and so on.  Namely, each
+       record is one line with two  fields,  Yomi  (reading)  and
+       Jukugo(idiom).   Fields are separated with commas (or TAB,
+       or blank).  The kanji code is restricted to  JIS  or  EUC.
+       See another document named JISYO for more details.
+
+EENNVVIIRROONNMMEENNTT VVAARRIIAABBLLEESS
+       The  behavior  is  affected  by  the following environment
+       variables.
+
+       KANWADICTPATH
+              Specifies a path of kanwadict (full-path  including
+              filename).       Default     value     is     $pre-
+              fix/share/kakasi/kanwadict.
+
+       ITAIJIDICTPATH
+              Specifies a path of itaijidict (full-path including
+              filename).          Default         value        is
+              $prefix/share/kakasi/itaijidict.
+
+AAUUTTHHOORR
+       Hironobu Takahasi <takahasi@tiny.or.jp>
+
+FFIILLEESS
+       $prefix/share/kakasi/kanwadict
+              It is a binary dictionary of _K_A_K_A_S_I_.  It  is  auto-
+              matically converted from kakasidict by mkkanwa when
+              the package is installed.
+
+SSEEEE AALLSSOO
+       mkkanwa(1)
+
+DDIIAAGGNNOOSSTTIICCSS
+       Return status except 0 when there is any trouble.
+
+BBUUGGSS
+       Report bugs  to  KAKASI  Project  <kakasi-dev@namazu.org>.
+       Please DO NOT CONTACT to the originator (Takahasi-san).
+
+NNOOTTEE AABBOOUUTT EENNGGLLIISSHH MMAANNUUAALL
+       The  content of English manual is not exactly same as that
+       of Japanese manual.
+
+
+
+
+                              LOCAL                     KAKASI(1)

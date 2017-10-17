@@ -1,0 +1,74 @@
+#!/bin/sh
+#
+# test for romaji conversion (misc, when you modified romaji table, add this)
+#    (require: GNU echo)
+#
+# $Id: kakasi-4,v 1.5 2014-01-28 06:55:30 knok Exp $
+
+LOG=`pwd`/test-log
+echo '  *** starting ' $0 >> $LOG
+
+. ./env.sh
+
+/bin/echo --version |grep -q GNU
+STATUS=$?
+if [ "$STATUS" != 0 ]
+then
+    echo "not GNU echo." >> $LOG
+    exit 77 # SKIP
+fi
+
+
+romacheck () {
+	KAKASI=../src/kakasi
+
+	echo 'hira to roma' >> $LOG
+	opt=$1
+	ret=`echo $hira | $KAKASI $opt -ieuc -Ha`
+	if [ ! "x$ret" = "x$roma" ]
+	then
+		echo "failed." >> $LOG
+		echo "opt: $opt" >> $LOG
+		echo "input: $hira" >> $LOG
+		echo "output: $ret" >> $LOG
+		exit 1
+	fi
+
+	echo 'kata to roma' >> $LOG
+	ret=`echo $kata | $KAKASI $opt -ieuc -Ka`
+	if [ ! "x$ret" = "x$roma" ]
+	then
+		echo "failed." >> $LOG
+		echo "opt: $opt" >> $LOG
+		echo "input: $kata" >> $LOG
+		echo "output: $ret" >> $LOG
+		exit 1
+	fi
+}
+
+# 
+hira='ちゃ ちゅ ちぇ ちょ で でぃ と ど'
+kata='チャ チュ チェ チョ デ ディ ト ド'
+roma='cha chu che cho de di to do'
+
+romacheck
+
+jisx0201='301 254 040 301 255 040 301 252 040 301 256 040 303 336 040 303 336 250 040 304 040 304 336 012'
+
+for x in $jisx0201
+do
+	/bin/echo -n -e "\\$x"
+done > tmp
+ret=`$KAKASI -isjis -ka < tmp`
+if [ ! "x$ret" = "x$roma" ]
+then
+	echo "failed." >> $LOG
+	echo "opt: $opt" >> $LOG
+	echo "input: tmp file" >> $LOG
+	echo "output: $ret" >> $LOG
+	exit 1
+fi
+
+rm -f tmp
+
+exit 0

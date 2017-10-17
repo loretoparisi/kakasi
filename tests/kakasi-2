@@ -1,0 +1,57 @@
+#!/bin/sh -e
+#
+# test for romaji conversion
+#
+# $Id: kakasi-2,v 1.4 2013-10-17 06:32:32 knok Exp $
+
+LOG=`pwd`/test-log
+echo '  *** starting ' $0 >> $LOG
+
+. ./env.sh
+
+romacheck () {
+	KAKASI=../src/kakasi
+
+	echo 'hira to roma' >> $LOG
+	for opt in -rh -rk '-t -rh'
+	do
+		ret=`echo $hira | $KAKASI $opt -ieuc -Ha`
+		if [ ! "x$ret" = "x$roma" ]
+		then
+			echo "failed." >> $LOG
+			echo "opt: $opt" >> $LOG
+			echo "input: $hira" >> $LOG
+			echo "output: $ret" >> $LOG
+			exit 1
+		fi
+	done
+
+	echo 'kata to roma' >> $LOG
+	for opt in -rh -rk '-t -rh'
+	do
+		ret=`echo $kata | $KAKASI $opt -ieuc -Ka`
+		if [ ! "x$ret" = "x$roma" ]
+		then
+			echo "failed." >> $LOG
+			echo "opt: $opt" >> $LOG
+			echo "input: $kata" >> $LOG
+			echo "output: $ret" >> $LOG
+			exit 1
+		fi
+	done
+}
+
+#
+hira='あ か さ た な は ま や ら わ'
+kata='ア カ サ タ ナ ハ マ ヤ ラ ワ'
+roma='a ka sa ta na ha ma ya ra wa'
+
+romacheck
+
+hira='お こ そ と の ほ も よ ろ を'
+kata='オ コ ソ ト ノ ホ モ ヨ ロ ヲ'
+roma='o ko so to no ho mo yo ro wo'
+
+romacheck
+
+exit 0

@@ -1,0 +1,50 @@
+#!/bin/sh
+#
+# test for incomplete input sequences
+#
+# $Id: kakasi-5,v 1.4 2014-01-28 07:05:12 knok Exp $
+
+LOG=`pwd`/test-log
+
+echo '  *** disabled ' $0 >> $LOG
+exit 77
+
+echo '  *** starting ' $0 >> $LOG
+
+. ./env.sh
+
+GNUECHO=/bin/echo
+
+bitpat () {
+    for x in 0 1 2 3
+    do
+      for y in 0 1 2 3 4 5 6 7
+      do
+	for z in 0 1 2 3 4 5 6 7
+	do
+	  $GNUECHO -n "$x$y$z "
+	done
+      done
+    done
+}
+
+BITPAT=`bitpat`
+
+for i in $BITPAT
+do
+  for j in $BITPAT
+  do
+    $GNUECHO -e -n "\\$i\\$j"
+  done > tmp
+  inp=`cat tmp`
+  out=`cat tmp | ../src/kakasi -ieuc -oeuc`
+  if [ ! "x$inp" = "x$out" ]
+  then
+      echo "failed." >> $LOG
+      echo "input: $inp" >> $LOG
+      echo "output: $out" >> $LOG
+      exit 1
+  fi
+done
+
+exit 0

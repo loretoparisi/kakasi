@@ -1,0 +1,181 @@
+
+	      Kakasi-2.2.5 + わかち書きパッチ for OS/2
+
+		       Sat, 02 May 1998
+
+		 清水 和佳 <kshimz@dd.iij4u.or.jp>
+		<URL:http://www.dd.iij4u.or.jp/~kshimz/>
+
+
+[はじめに]
+
+    これは高橋裕信氏が作成された「漢字かな読み上げ」プログラムである KAKASI
+    に、馬場肇氏が作成された「わかち書きパッチ」をあてたものを、OS/2 上で使
+    用するために emx gcc でコンパイルできるようにした patch です。
+
+
+[この patch オリジナルな機能]
+
+    kanwadict / itaijidict の位置 (ファイル名を含むフルパス) を環境変数から
+    取得できるようにしました。kakasi.exe を PATH の通ったディレクトリに置き、
+
+          SET KANWADICTPATH = d:\usr\local\lib\kanwadict
+          SET ITAIJIDICTPATH = d:\usr\local\lib\itaijidict
+
+    のように環境変数 KANWADICTPATH と ITAIJIDICTPATH を設定すれば、kakasi
+    実行時のカレントドライブを気にしないで済みます。
+
+
+[含まれるファイル]
+
+    readme.os2                        この文書
+    patch.kakasi-2.2.5.wakachi.os2    パッチ本体
+    configure.cmd                     ソース展開とパッチ適用を実行する REXX
+                                      のスクリプト
+
+
+[kakasi.exe の作成に必要なファイル]
+
+    Kakasi-2.2.5 + わかち書きパッチ for OS/2 を作成するには、以下のアーカイ
+    ブ (に含まれるファイル) が必要です。
+
+    ・kakasi-2.2.5.tar.gz      kakasi version 2.2.5 のアーカイブ
+    ・kakasi-ext.tar.gz        kakasi のわかち書きパッチのアーカイブ
+    ・kakasidict.940620.gz     kakasi で使用する辞書
+
+    これらは、以下のサイトから取得することができます。
+
+    ・http://saturn.aichi-u.ac.jp/~ccsatoru/Download/
+    ・ftp://ftp.kusastro.kyoto-u.ac.jp/pub/baba/wais/
+
+    他にも多数のサイトに置かれています。archie で探してみるといいでしょう。
+
+
+[必要なツール]
+
+    OS/2 の emx gcc の開発環境は必須です。
+
+    OS/2 Magazine No.23 に、emx gcc 開発環境全般に関する特集記事が掲載されて
+    いるので、参照されるといいでしょう。
+
+    その他に、以下のツールを使用します。これらを path の通ったディレクトリに
+    置いてください。すべて OS/2 Magazine の付録 CD-ROM の \os2mag\unix 以下、
+    または ftp://hobbes.nmsu.edu/ , ftp://ftp.leo.org/ 等の匿名 ftp サイトに
+    あるハスです。
+
+    ・GNUMAKE.ZIP     に含まれる make.exe
+    ・GNUPATCH.ZIP    に含まれる patchos2.exe
+    ・GNUFUTIL.ZIP    に含まれる cp.exe / rm.exe / mv.exe
+    ・GTAR245.ZIP     に含まれる tar.exe
+    ・GZIP124.ZIP     に含まれる gzip.exe
+
+
+[コンパイル (バイナリの作成) 方法]
+
+1. 作業ドライブの決定
+
+    まず、KAKASHI の make を実行するドライブを決定します。
+    (以下の説明では、F: ドライブを想定)
+
+    また、作業ドライブは HPFS でフォーマットされている必要があります。
+    作業するドライブ上の適当なディレクトリに、
+
+    ・patch.kakasi-2.2.5.wakachi.os2
+    ・configure.cmd
+
+    を展開し、同じディレクトリに
+
+    ・kakasi-2.2.5.tar.gz
+    ・kakasidict.940620.gz
+    ・kakasi-ext.tar.gz
+
+    をそのまま (展開せず、アーカイブのまま) 置きます。
+
+
+2. configure.cmd を実行する
+
+    上記のファイルを置いたディレクトリに移動し、コマンドプロンプトから
+
+      [F:\temp] configure
+
+    と入力し、Enter キーを押します。
+
+    この REXX スクリプトは、make に使うルール類の存在確認・アーカイブの展開
+    ・パッチの適用、インストール先ディレクトリの作成、を実行します。
+
+    (インストール先は \usr\local\bin と \usr\local\lib\kakasi です。)
+
+    エラーが出たら、そのメッセージに従って処置してください。
+
+
+3. make する
+
+    configure.cmd が正常に終了したら、カレントディレクトリが (F:\temp\)
+    kakasi-2.2.5\src になっているハズなので、そのまま make all を実行します。
+    正常に (Error を出さず) 終了したら、続けて make install を実行します。
+
+     \usr\local\bin        に kakasi.exe
+     \usr\local\lib\kakasi に atoc-conv.exe itaijidict kanwadict
+                              mkkanwa.exe rdic-conv.exe
+
+    ができているハズです。kakasi.exe が Kakasi-2.2.5 + わかち書きパッチの実
+    行形式 (OS/2 用のバイナリ) です。kanwadict と itaijidict は kakasi が参
+    照する辞書ファイルです。atoc-conv.exe mkkanwa.exe rdic-conv.exe は、辞書
+    ファイル作成用のツールです。
+
+
+4. 動作確認
+
+	make を実行したディレクトリで、kakasi -w -osjis < ANNOUNCE と打ち
+	込んでみて下さい。
+
+.............................
+   辞書 が 使え るようになりました 。 Wnn の 辞書 も ASCII フォーマット
+   に 変換 すればそのまま 読む ことができます 。 また 、 JUNET で 過去 に
+   ポスト された 辞書 はすべて 利用 でき 、 r-dic を 除い て 、 そのまま 使
+   うことができます 。
+
+ 4. 以下の オプション を 設定 しました 。
+
+   -rk         ローマ 字 への 変換 様式 を ヘボン 式 から 訓令式 に 変更 します
+。
+   -p          辞書 中 で 照合 したものが 複数 ある 時に 、 その 全て を 表示し
+ます 。
+   -s          漢字 からの 変換 で 変換ご とに 空白 等 の 区切 を 入れ るよう∂
+します 。
+   -f          ふりがな モード 。 つまり 変換前 の 漢字 の 脇 にその 読み を 互
+し込み ます 。
+   -c" 文字列 "  漢字熟語 中に 含ま れる 、 空白 や 改行 を 除い て 読む よう∂
+します 。
+   -C          漢字 の ローマ 字 変換 で 先頭 の 文字 を 大文字 にします 。
+   -U          漢字 の ローマ 字 変換 で 大文字 にします 。
+   -u          文字 の 出力 ごとに fflush を 呼び ます 。
+
+
+
+.............................
+
+	以上のように表示されたら正常です。おめでとうございます。
+
+
+5. 環境設定
+
+    kakasi.exe は PATH が通ったディレクトリに置きましょう。
+
+    kakasi.exe を実行時に、環境変数 KANWADICTPATH と ITAIJIDICTPATH が設定
+    されていない場合、カレントドライブの /usr/local/lib/kakasi に辞書ファ
+    イル kanwadict と itaijidict があるものとして動作します。
+
+    ここに辞書ファイルがない場合には、エラーとなります。
+
+    環境変数 KANWADICTPATH と ITAIJIDICTPATH を設定しておけば、辞書ファイル
+    の位置を気にすることなく kakasi を実行できるので、OS/2 で kakasi を使う
+    ならば、これらの環境変数を設定しておくことをお勧めします。
+
+
+[その他]
+
+    オリジナルが GNU Public Licence に即して配布されているので、これに
+    従います。
+
+以上.

@@ -1,0 +1,2 @@
+0	string	KAKASI\xFF\xFE	KAKASI dictionary (little endian)
+0	string	KAKASI\xFE\xFF	KAKASI dictionary (big endian)

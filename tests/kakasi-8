@@ -1,0 +1,46 @@
+#!/bin/sh
+#
+# test for libkakasi linkable
+#
+# $Id: kakasi-8,v 1.7 2014-01-28 07:03:35 knok Exp $
+
+LOG=`pwd`/test-log
+echo '  *** starting ' $0 >> $LOG
+
+if [ ! -e "$CC" ]
+then
+    echo "can't find CC: $CC"  >> $LOG
+    exit 77
+fi
+
+TMPSRC=main.c
+TMPEXE=main
+
+clean() {
+    rm -f $TMPSRC $TMPEXE ${TMPEXE}.exe
+}
+
+cat > $TMPSRC <<_EOF
+#include <libkakasi.h>
+
+int
+main()
+{
+    char *arg[] = {"kakasi", "-w"};
+    kakasi_getopt_argv(2, arg);
+    return 0;
+}
+_EOF
+
+$CC $TMPSRC -o $TMPEXE -I../lib ../lib/.libs/libkakasi.so
+STATUS=$?
+if [ "$STATUS" != 0 ]
+then
+      echo "failed." >> $LOG
+      echo "status code: $STATUS" >> $LOG
+      exit 1
+fi
+
+clean
+
+exit 0

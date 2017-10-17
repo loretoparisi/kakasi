@@ -1,0 +1,472 @@
+.\" $Id: kakasi.1.ja,v 1.4 2014-02-03 07:07:16 knok Exp $
+.\" Copyright (C) 1992
+.\" Hironobu Takahashi (takahasi@tiny.or.jp)
+.\"
+.\" This program is free software; you can redistribute it and/or modify
+.\" it under the terms of the GNU General Public License as published by
+.\" the Free Software Foundation; either versions 2, or (at your option)
+.\" any later version.
+.\"
+.\" This program is distributed in the hope that it will be useful
+.\" but WITHOUT ANY WARRANTY; without even the implied warranty of
+.\" MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+.\" GNU General Public License for more details.
+.\"
+.\" You should have received a copy of the GNU General Public License
+.\" along with KAKASI, see the file COPYING.  If not, write to the Free
+.\" Software Foundation Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
+.\" 
+.de Sp
+.if t .sp .5v
+.if n .sp
+..
+.de Ip
+.br
+.ie \\n.$>=3 .ne \\$3
+.el .ne 3
+.IP "\\$1" \\$2
+..
+.TH KAKASI 1 LOCAL
+.UC 6
+.SH NAME
+KAKASI \- Kanji kana simple inverter (漢字かな読み上げ)
+.SH SYNOPSIS
+.B kakasi [options] [jisyo1 [jisyo2 [jisyo1,,]]]
+.SH DESCRIPTION
+.I KAKASI
+は漢字かな混じり文をかなだけの文やローマ字表記に変換することを
+目的として作られました。
+漢字の読めない端末を使った時や、
+漢字に不慣れな外国人や子供に文章を紹介したい時などに使えるかもしれません。
+標準入力から日本語の文章を入力すると、
+指定された文字セットに変換されて出力されます。 
+.PP
+例えば次の例では文中の漢字がひらがなに変換されます。
+.Ip "" 10
+kakasi \-JH < document
+.PP
+バージョン 2.3.0 からは、分かち書き機能が追加されました。
+例えば次の例では、日本語文が分かち書きされて出力されます。
+.Ip "" 10
+kakasi \-w < document
+.PP
+バージョン 2.3.5 からは、学年別ひらがな変換機能が追加されました。
+例えば次の例では、小学4年生までに習った漢字は漢字のまま表示し、
+それ以外の難しい漢字はひらがなに開いて出力されます。
+.Ip "" 10
+kakasi \-l4 < document
+.PP
+.I KAKASI
+は文字をローマ字に変換したり、
+JIS x0201
+のかたかな文字や、
+JIS x0208
+のひらがな、
+かたかなの間で相互に変換できます。
+.I KAKASI
+では文字セットとして次のものを理解します。
+(カッコの中は
+.I KAKASI
+のオプションとして指定する文字を表します。)
+.PP
+.Ip "ASCII (a)" 10
+いわゆる ascii です。'〜', '＼' が含まれています。
+.PP
+.Ip "JISROMAN (j)" 10
+いわゆる jis roman です。'￣' , '￥' が含まれています。
+.PP
+.Ip "GRAPHIC (g)" 10
+これについては正しい名称を知りません。
+DEC 社の端末で表示される罫線などがこの文字セットに含まれます。
+.PP
+.Ip "かたかな (k)" 10
+.br
+JIS x0201 で定義されている文字セットのうち GR の部分です。
+.PP
+.Ip "" 10
+以下は JIS x0208 を便宜上分割したものです。規格上は全体で一つの文字セットです。
+.PP
+.Ip "漢字 (J)" 10
+.br
+16 区以降の `亜' に続く文字です。
+.Ip "ひらがな (H)" 10
+.br
+4 区にあるひらがなです。
+.Ip "かたかな (K)" 10
+.br
+5 区にあるかたかなです。
+ひらがなと 1 区ずれただけでなく、独自の個性が発揮されているものです。
+.Ip "記号 (E)"
+.br
+上記以外の文字です。
+.PP
+次の文字セット間の変換が指定できます。
+.PP
+.Ip "ASCII" 13
+\-> JISROMAN, 記号
+.Ip "JISROMAN" 13
+\-> ASCII, 記号
+.Ip "GRAPHIC" 13
+\-> ASCII, JISROMAN, 記号
+.Ip "JISx0201のかたかな" 13
+\-> ASCII, JISROMAN, カナ, ひらがな
+.Ip "記号" 13
+\-> ASCII, JISROMAN
+.Ip "かたかな" 13
+\-> ASCII, JISROMAN, JISx0201のかたかな, ひらがな
+.Ip "ひらがな" 13
+\-> ASCII, JISROMAN, JISx0201のかたかな, カナ
+.Ip "漢字" 13
+\-> ASCII, JISROMAN, JISx0201のかたかな, カナ, ひらがな
+.PP
+漢字からの変換では読み上げによって変換します。
+JISx0201かたかな、かたかな、ひらがな、漢字から ASCII と JISROMAN への
+変換ではローマ字変換を行います。
+.PP
+.SH "文字セットの変換指定オプション"
+.PP
+.Ip "\-a[jE]"
+.B E
+が指定されると JISx0208 の記号への変換になります。
+それ以外のコードが指定されるか, 引数がないと変換しません。
+.PP
+.Ip "\-j[aE]"
+.B E
+が指定されると JISx0208 の記号への変換になります。
+.PP
+.Ip "\-g[ajE]"
+ちょっと無理があります。
+.PP
+.Ip "\-k[ajKH]"
+.B aj
+を指定するとローマ字に変換します。
+.B KH
+では JISx0208 のかたかなやひらがなに変換します。
+.PP
+.Ip "\-E[aj]"
+JISx0208 の記号を ASCII または JIS ROMAN にします。
+現在のバージョンではそのほとんどが手抜き工事になっています。
+.PP
+.Ip "\-H[ajkK]"
+.B aj
+を指定するとローマ字に変換します。
+.B k
+ではJISx0201のかたかなに、
+.B K
+ではかたかなに変換します。
+.PP
+.Ip "\-K[ajkH]"
+.B aj
+を指定するとローマ字に変換します。
+.B k
+ではJISx0201のかたかなに、
+.B H
+ではひらがなに変換します。
+.PP
+.Ip "\-J[ajkHK]"
+まず辞書を引いて読み上げ、
+.B aj
+が指定されるとローマ字に変換します。
+.B k
+ではJISx0201のかたかなに、
+.B H
+ではひらがなに、
+.B K
+ではかたかなに変換します。
+.PP
+.Ip "Example:" 4
+.sp
+1. 漢字をひらがなに読み上げる
+.sp
+    kakasi \-JH 
+.sp
+2. すべての JISx0208 で定義された文字をおきかえる。
+.sp
+.sp
+    kakasi \-Hk \-Kk \-Jk \-Ea
+.sp
+3. すべての文字を JISx0208 の文字におきかえる。
+.sp
+    kakasi \-aE \-jE \-gE \-kK
+.sp
+4. ローマ字変換
+.sp
+    kakasi \-Ha \-Ka \-Ja \-Ea \-ka
+.sp
+5. かたかなとひらがなを交換
+.sp
+    kakasi \-HK \-KH
+.PP
+.SH 漢字コーディング
+.PP
+.I KAKASI
+では次の漢字コーディングシステムが使えます。
+.PP
+           JIS, OLDJIS, EUC, DEC, SJIS, UTF8
+.PP
+.Ip "\-i{jis, oldjis, euc, dec, sjis, utf8}"
+入力側の漢字コードを指定します。
+もしも指定されない場合には入力から判断しようとします。
+.I KAKASI
+は入力をためこんで統計的に処理する方法がとれないので、
+最初の漢字らしい文字をもって判断します。
+.sp
+1. ESC\-$\-B
+.br
+JIS コーディングと解釈します。
+またこれ以降は G0 に 新JIS が指示されたものとします。
+.sp
+2. ESC\-$\-@
+.br
+旧JIS コーディングと解釈します。
+またこれ以降は G0 に 旧JIS が指示されたものとします。
+.sp
+3. 0x80 以上の値
+.br
+この時さらに 1 Byte を入力して、
+この 2 Byte で シフトJIS の JISx0208 文字として解釈できる場合、
+新JIS コーディングと解釈します。
+またこれ以降は GR は使えず シフトJIS の文字として解釈されます。
+.sp
+4. 0x80 で上記に該当しない
+.br
+以降は EUC コーディングを仮定します。
+.br
+なお、オプションで指定する以外に DEC コーディングが指定されることはありません。
+.br
+最初にJISx0201のかたかなを表現する 0xa0 以上のコードに遭遇した場合と、
+EUC コードなのに SJIS としても解釈され得る文字に遭遇すると誤って解釈します。
+つまり `燹' から `螢' までの 945 文字のいずれかが EUC で表現されていても
+SJIS に解釈されてしまいます。
+.PP
+.Ip "\-o{jis, oldjis, euc, dec, sjis, utf8}" 8
+出力側の漢字コーディングを指定します。
+もしも指定されない場合には入力と同じにします。
+.PP
+漢字のコーディングのモデルとしては、
+以下のように文字セットの指示と呼出しがされているものとします。
+.PP
+JIS:
+.PP
+    GL \-\- G0 \-\- ASCII
+    GR \-\- G1 \-\- JISx0201のかたかな
+          G2 \-\- JISx0201のかたかな
+          G3 \-\- JISx0201のかたかな
+.PP
+JISx0208 の文字は ESC\-$\-B を用いて G0 に指示をして出力します。
+.PP
+OLDJIS:
+.PP
+    GL \-\- G0 \-\- JISROMAN
+    GR \-\- G1 \-\- JISx0201のかたかな
+          G2 \-\- JISx0201のかたかな
+          G3 \-\- JISx0201のかたかな
+.PP
+JISx0208 の文字は ESC\-$\-@ を用いて G0 に旧JISを指示をして出力します。
+.PP
+EUC:
+.PP
+    GL \-\- G0 \-\- ASCII
+          G1 \-\- JISx0201のかたかな
+          G2 \-\- JISx0201のかたかな
+    GR \-\- G3 \-\- JISx0208 の文字
+.PP
+JISx0201のかたかなの表示には ESC\-N (シングル シフト)を使って、
+GR に G2 を呼出して出力します。
+.PP
+DEC:
+.PP
+    GL \-\- G0 \-\- ASCII
+          G1 \-\- GRAPHIC
+          G2 \-\- JISx0201のかたかな
+    GR \-\- G3 \-\- JISx0208 の文字
+.PP
+JISx0201のかたかなの表示には ESC\-} を使って GR に G2 を呼出して出力します。
+.PP
+SJIS:
+.PP
+    GL \-\- G0 \-\- ASCII
+          G1 \-\- JISx0201のかたかな
+          G2 \-\- JISx0201のかたかな
+          G2 \-\- JISx0201のかたかな
+    GR \-\- SHIFTJIS
+.PP
+JISx0201のかたかなとJISx0208 の文字の表示は GR で行います。
+.PP
+入力側では次のようにエスケープシークエンスを解釈します。
+.PP
+呼出し:
+.br
+           G0     G1     G2     G3
+.br
+GL:        SI     SO    ESC\-n  ESC\-o
+.br
+GR:              ESC\-~  ESC\-}  ESC\-|
+.sp
+シングルシフト:
+.br
+           G0     G1     G2     G3
+.br
+                        ESC\-N  ESC\-O
+.br
+                        (SS2)  (SS3)
+.sp
+指示：
+.br
+.br
+       ASCII   JISROMAN GRAPHIC  かたかな   旧JIS     新JIS
+.br
+G0:   ESC\-(\-B  ESC\-(\-J  ESC\-(\-0  ESC\-(\-I   ESC\-$\-@   ESC\-$\-B
+.br
+G1:   ESC\-)\-B  ESC\-)\-J  ESC\-)\-0  ESC\-)\-I  ESC\-$\-)\-@ ESC\-$\-)\-B
+.br
+G2:   ESC\-*\-B  ESC\-*\-J  ESC\-*\-0  ESC\-*\-I  ESC\-$\-*\-@ ESC\-$\-*\-B
+.br
+G3:   ESC\-+\-B  ESC\-+\-J  ESC\-+\-0  ESC\-+\-I  ESC\-$\-+\-@ ESC\-$\-+\-B
+.sp
+.SH 漢字かな変換オプション
+.PP
+.B "\-Jx"
+あるいは
+.B "\-w"
+を使って漢字からの変換にのみ適用されるオプションです。
+他の変換には影響しません。
+.Ip "\-p"
+辞書中で照合したものが複数ある時に、そのすべてを表示します。
+多くの単語は複数の読みがあります。
+その場合 {} でくくって表示します。
+.sp
+        素子 \-> {もとこ|そし}
+.Ip "\-s"
+漢字からの変換で変換ごとに空白等の区切を入れるようにします。
+前にすでに改行、空白、TAB が入っていればなにもしませんが、
+なければ空白文字を入れます。
+また後ろにも空白を入れます。
+漢字かな混じり文をローマ字に変換する場合には不可欠ですね。
+.sp
+    "漢字かな混じり文をローマ字に変換"
+.br
+    " kan'zi kana ma ziri bun' woro\-ma zi ni hen'kan' "
+.PP
+.Ip "\-S"
+\-s オプションあるいは \-w オプション指定時に出力される区切り文字は
+デフォルトでは空白文字 ' ' ですが、
+\-S オプションで任意の ASCII 文字列を指定することができます。
+たとえば \-s \-S__ のようにオプションを与えると、
+.sp
+    "漢字かな混じり文を"
+.sp
+が、
+.sp
+    "漢字__かな__混__じり__文__を"
+.sp
+となります。あるいは、\-s \-S"<sep>" とすれば、
+.sp
+    "漢字<sep>かな<sep>混<sep>じり<sep>文<sep>を"
+.sp
+となります。
+.Ip "\-f"
+ふりがなモード。
+つまり変換前の漢字の脇にその読みを差し込みます。
+.sp
+  "変換前の漢字の脇に"
+.sp
+  "変換前[へんかんまえ]の漢字[かんじ]の脇[わき]に"
+.PP
+.Ip "\-F"
+ふりがなモード時の括弧として任意の ASCII 文字列を指定します。
+左右の括弧に対応して \-Fl と \-Fr というサフィックスがつきます。
+たとえば、左側に左丸括弧を指定するには \-Fl"(" と、
+右側に右丸括弧を指定するには \-Fr")" と指定します。
+.sp
+  "変換前(へんかんまえ)の漢字(かんじ)の脇(わき)に"
+.sp
+あるいは、\-JF \-f \-Fl"<ruby>" \-Fr"</ruby>" のように指定すると、
+以下のようにできます。
+.sp
+  "変換前<ruby>へんかんまえ</ruby>の漢字<ruby>かんじ</ruby>の脇<ruby>わき</ruby>に"
+.PP
+.Ip "\-c\"文字列\""
+漢字熟語中に含まれる、空白や改行を除いて読むようにします。
+複数の行に改行で分割されたり、行の先頭にタブや引用符がある時
+でもよみがなの解釈が行えるようにします。
+読みとばす文字の default  は{改行 タブ 空白}ですが、
+任意の ascii 文字が追加できます。
+JUNET のニュースならば、引用を示す \-c'>' とするといいでしょう。
+以下の例では \-c">_" としたものです。
+.sp
+    >> このバグについてはこれから検
+    >> 討してみます。  谷_山__浩_子
+.sp
+    >> このバグについてはこれからけんとう
+    >> してみます。  たにやま___ひろこ_
+.PP
+.Ip "\-C"
+漢字をローマ字に変換する場合に、
+先頭のアルファベットを大文字にします。
+\-Ja \-Jj と共に使った場合のみ有効です。
+.PP
+.Ip "\-U"
+漢字をローマ字に変換する場合に、
+アルファベットをすべて大文字にします。
+\-Ja \-Jj と共に使った場合のみ有効です。
+.SH その他のオプション
+.Ip "\-rk"
+ローマ字への変換様式をヘボン式から訓令式に変更します。
+例えば、'し' は標準では 'shi' ですが、 'si' になります。
+.B \-r
+のみもしくは、
+.B \-rh
+などの指定では
+.I "Hepburn (ヘボン)"
+式になります。
+.PP
+.Ip "\-t"
+ローマ字への変換で従来のヘボン式を利用します。
+.Ip "\-u"
+文字の出力ごとに
+.B "fflush()"
+を呼びます。
+system V などで端末出力をすぐ見たい時に必要になるかもしれません。
+.Ip "\-w"
+分かち書きをします。詳しくは、README.wakati をご覧下さい。
+.Ip "\-l[123456jn]"
+学年別ひらがな変換機能(仮名表記モード)を指定します。
+詳しくは、README.level をご覧下さい。
+.Ip "\-L[123456jn]"
+学年別ひらがな変換機能(振り仮名モード)を指定します。
+詳しくは、README.level をご覧下さい。
+.SH 辞書
+.I KAKASI
+ではユーザの辞書を任意に追加することができます。使用できる辞書は
+.I SKK
+の辞書に準じたフォーマットか
+.I Wnn
+の ASCII 形式などのように、
+1 行に読みと熟語の順に並んでいて、
+空白、タブ、カンマ等で区切られているものが使えます。
+辞書の漢字コーディングは JIS または EUC に限ります。
+詳細については JISYO というファイルを参照してください。
+.SH 環境変数
+.Ip KANWADICTPATH
+kanwadict の場所 (ファイル名を含むフルパス) を指定することができます。
+省略時は $prefix/share/kakasi/kanwadict を設定したのと同じことになります。
+.Ip ITAIJIDICTPATH
+itaijidict の場所 (ファイル名を含むフルパス) を指定することができます。
+省略時は $prefix/share/kakasi/itaijidict を設定したのと同じことになります。
+.SH AUTHOR
+高橋 裕信 <takahasi@tiny.or.jp>
+.SH FILES
+.Ip "$prefix/share/kakasi/kanwadict"
+.I KAKASI
+の基本辞書です。
+インストール時に mkkanwa によって作成されます。
+.SH SEE ALSO
+mkkanwa(1)
+.SH DIAGNOSTICS
+辞書にトラブルがあれば 0 以外の値を返します。
+.SH BUGS
+.\" たくさんあるはずです。
+.\" みつけたら takahasi@tiny.or.jp までレポートしてください。
+何かありましたら、高橋さんにではなく、KAKASI プロジェクト
+<kakasi\-dev@namazu.org> までお知らせ下さい。

@@ -1,0 +1,119 @@
+dnl Process this file with autoconf to produce a configure script.
+dnl $Id: configure.in,v 1.23 2014-03-18 06:33:20 knok Exp $
+
+AC_INIT
+AC_CONFIG_SRCDIR([src/kakasi.c])
+AC_PREREQ([2.50])
+AM_INIT_AUTOMAKE(kakasi, 2.3.6)
+
+AM_MAINTAINER_MODE
+
+dnl Checks for programs.
+AC_PROG_CC
+AC_PROG_CPP
+AC_PROG_INSTALL
+AC_PROG_MAKE_SET
+
+AC_DEFUN([KAKASI_CHECK_CFLAGS],
+[AS_IF([AC_TRY_COMMAND([${CC-cc} $1  -xc /dev/null -S -o /dev/null])],
+			 [CFLAGS="$CFLAGS $1"])])
+
+dnl OS specific.
+AC_EXEEXT
+AC_OBJEXT
+
+dnl AC_DISABLE_SHARED
+dnl AC_LIBTOOL_WIN32_DLL
+AC_PROG_LIBTOOL
+
+dnl Checks for libraries.
+dnl Replace `main' with a function in -le:
+AC_CHECK_LIB(e, main)
+
+dnl Checks for header files.
+AC_HEADER_STDC
+AC_CHECK_HEADERS(malloc.h string.h strings.h)
+
+dnl Checks for typedefs, structures, and compiler characteristics.
+dnl AC_C_CHAR_UNSIGNED
+
+dnl Checks for library functions.
+AC_CHECK_FUNCS(memmove)
+
+AC_MSG_CHECKING(for wakatigaki)
+AC_ARG_ENABLE(wakatigaki,
+[  --enable-wakatigaki     wakatigaki [default=yes]])
+if test "${enable_wakatigaki+set}" != set; then
+  wakatigaki=yes
+else
+  case "${enable_wakatigaki}" in
+    yes) wakatigaki=yes ;;
+    no) wakatigaki=no ;;
+  esac
+fi
+AC_MSG_RESULT($wakatigaki)
+test "${wakatigaki}" = yes && AC_DEFINE(WAKATIGAKI, 1, [WAKATIGAKI])
+
+AC_MSG_CHECKING(for eachyomi)
+AC_ARG_ENABLE(eachyomi,
+[  --enable-eachyomi       eachyomi [default=yes]])
+if test "${enable_eachyomi+set}" != set; then
+  eachyomi=yes
+else
+  case "${enable_eachyomi}" in
+    yes) eachyomi=yes ;;
+    no) eachyomi=no ;;
+  esac
+fi
+AC_MSG_RESULT($eachyomi)
+test "${eachyomi}" = yes && AC_DEFINE(EACH_YOMI, 1, [EACH_YOMI])
+
+AC_MSG_CHECKING(for utf8 conversion)
+AC_ARG_ENABLE(utf8,
+[  --enable-utf8           utf8 [default=yes]])
+if test "${enable_utf8+set}" != set; then
+  utf8=yes
+else
+  case "${enable_utf8}" in
+    yes) utf8=yes ;;
+    no) utf8=no ;;
+  esac
+fi
+AC_MSG_RESULT($utf8)
+AS_VAR_IF(utf8, "yes",[
+    AM_ICONV
+    LIBS="$LIBICONV $LIBS"
+    AC_DEFINE(KAKASI_SUPPORT_UTF8, 1, [KAKASI_SUPPORT_UTF8])
+    AC_RUN_IFELSE([AC_LANG_PROGRAM([#include <iconv.h>],
+		    [if (iconv_open("EUC-JP", "UTF-8") == -1) exit(1);])],
+	[],
+	[AC_MSG_ERROR([can not use EUC-JP or UTF-8 encoding on iconv])])
+])
+
+dnl check gcc flags
+KAKASI_CHECK_CFLAGS([-Wall])
+KAKASI_CHECK_CFLAGS([-Wunused])
+KAKASI_CHECK_CFLAGS([-Wuninitialized])
+KAKASI_CHECK_CFLAGS([-Wmissing-declarations])
+KAKASI_CHECK_CFLAGS([-Wmissing-prototypes])
+KAKASI_CHECK_CFLAGS([-pedantic])
+KAKASI_CHECK_CFLAGS([-Wno-unused-result])
+
+AM_CONFIG_HEADER(config.h)
+AC_CONFIG_FILES([src/Makefile
+	   lib/Makefile
+	   lib/makefile.msc
+	   man/Makefile
+	   tests/Makefile
+	   tests/data/Makefile
+	   Makefile
+	   kakasi-config
+	   kakasi.spec
+	  ])
+AC_CONFIG_COMMANDS([default],[chmod +x kakasi-config],[])
+AC_OUTPUT
+
+# Local Variables:
+# mode:shell-script
+# sh-indentation:2
+# End:

@@ -1,0 +1,19 @@
+* manpageのprefixをconfigure時に書き換える
+
+* --enable-wakatigaki オプションの廃止。
+
+* -JH オプションをつけると読めない漢字は表示しないので、
+  できたらなんとかしたいな。[namazu-dev 826,838]
+
+* 文字種指定オプションは同じ文字種に対する指定が再出する場合に
+  proc[] を上書きしますが NULL でないときエラーを出した方が
+  親切に思います。いかがでしょうか。[namazu-dev 917]
+
+* ソースコードのcleanup :-)
+
+* 英語の文書を用意する。
+
+完了:
+
+* kakasidictの扱いをendian独立にする。
+* testsuiteの整備。

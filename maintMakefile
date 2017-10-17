@@ -1,0 +1,57 @@
+## for MAINTAINERS.
+
+snapshot:
+	$(MAKE) dist distdir=$(PACKAGE)`date +"-%Y-%m-%d"`
+
+
+cxref: src/kakasi
+	if test ! -d cxref; then \
+	    $(mkinstalldirs) cxref; \
+	fi
+	cxref -N kakasi -html20-src -DWAKATIGAKI -I . -I src \
+	    -warn-xref -index-all -xref-all -O cxref \
+	    src/*.[ch] 1> cxref/warnings 
+
+	# Two passes are needed for accurate cross referencing.
+	cxref -N kakasi -html20-src -DWAKATIGAKI -I . -I src \
+	    -warn-xref -index-all -xref-all -O cxref \
+	    src/*.[ch] 1> cxref/warnings 
+
+cxref-lib: lib/libkakasi.la
+	if test ! -d cxref-lib; then \
+	    $(mkinstalldirs) cxref-lib; \
+	fi
+	cxref -N libkakasi -html20-src -DWAKATIGAKI -DLIBRARY -I . -I lib -I src \
+	    -warn-xref -index-all -xref-all -O cxref-lib \
+	    lib/*.[ch] src/kakasi.h 1> cxref-lib/warnings 
+
+	# Two passes are needed for accurate cross referencing.
+	cxref -N libkakasi -html20-src-DWAKATIGAKI -DLIBRARY -I . -I lib -I src \
+	    -warn-xref -index-all -xref-all -O cxref-lib \
+	    lib/*.[ch] src/kakasi.h 1> cxref-lib/warnings 
+
+cxref-latex2e: src/kakasi
+	if test ! -d cxref-latex2e; then \
+	    $(mkinstalldirs) cxref-latex2e; \
+	fi
+	cxref -N kakasi -latex2e -I . -I src \
+	    -warn-xref -index-all -xref-all -O cxref-latex2e \
+	    src/*.[ch] 1> cxref-latex2e/warnings 
+
+	# Two passes are needed for accurate cross referencing.
+	cxref -N kakasi -latex2e -I . -I src \
+	    -warn-xref -index-all -xref-all -O cxref-latex2e \
+	    src/*.[ch] 1> cxref-latex2e/warnings 
+
+	cd cxref-latex2e && \
+	platex kakasi.tex && \
+	platex kakasi.tex # Two passes are needed for referencing.
+
+
+global: HTAGS
+
+HTAGS: GTAGS
+	htags
+
+GTAGS: src/kakasi
+	gtags

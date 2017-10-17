@@ -1,0 +1,847 @@
+2014-03-18  NOKUBI Takatsugu  <knok@daionet.gr.jp>
+
+	* configure.in: Bump version 2.3.6.
+	* NEWS: 2.3.6 description.
+
+2014-02-19  NOKUBI Takatsugu  <knok@daionet.gr.jp>
+
+	* src/kanjiio.c: Add iconv_t cast.
+
+2014-02-13  NOKUBI Takatsugu  <knok@daionet.gr.jp>
+
+	* src/dict.c: Define uintptr_t as a typedef instead of #define.
+
+2014-02-07  NOKUBI Takatsugu  <knok@daionet.gr.jp>
+
+	* src/hh2.c (H2H): Fix unnecessary separate string output
+	 when first input char is hiragana.
+
+	* tests/kakasi-9: Add wakatigaki test.
+	* tests/data/*: Test data for the above.
+
+2014-02-03  NOKUBI Takatsugu  <knok@daionet.gr.jp>
+
+	* man/kakasi.1: Add escape chars before hyphen.
+	  - Add utf8 on encoding option.
+	* man/kakasi.1.ja: Ditto.
+	* man/kakasi-config.1: New file.
+	  - These modifications are contributed by Osamu Aoki,thanks.
+	* TODO: Add a new task (subsitute prefix directory in manpages).
+
+2014-01-31  NOKUBI Takatsugu  <knok@daionet.gr.jp>
+
+	* configure.in: Chage to check gcc flags in runtime, 
+	  instead of the configure file generation time.
+	 Fix utf8 check in runtime.
+
+2014-01-29  NOKUBI Takatsugu  <knok@daionet.gr.jp>
+
+	* configure.in: Check -Wno-unused-result option in gcc.
+
+2014-01-28  NOKUBI Takatsugu  <knok@daionet.gr.jp>
+
+
+	* configure.in: Bumped Version 2.3.6dev.
+
+	* tests/kakasi-1 : Check GNU od.
+
+	* tests/kakasi-4 : Check GNU echo.
+
+	* tests/kakasi-5: Set exit status to 77 (SKIP)
+
+	* tests/kakasi-8: use $CC instead of gcc.
+
+2014-01-18  NOKUBI Takatsugu  <knok@daionet.gr.jp>
+
+	* Version 2.3.5.
+
+2013-12-17  NOKUBI Takatsugu  <knok@daionet.gr.jp>
+
+	* tests/kakasi-6 : Disable bashism test.
+	* tests/kakasi-7: Ditto.
+
+2013-12-14  knok  <knok@kerl.knok.ddns.daionet.gr.jp>
+
+	* configure.in: Bumped to 2.3.5pre2.
+
+	* TODO: Remove some entry it already had done.
+
+2013-12-03  NOKUBI Takatsugu  <knok@daionet.gr.jp>
+
+	* tests/kakasi-5: Disable incomplete test.
+
+2013-11-22  NOKUBI Takatsugu  <knok@daionet.gr.jp>
+
+	* COPYING: Add explicit license file (GPLv2 or lator)
+
+2013-11-19  NOKUBI Takatsugu  <knok@daionet.gr.jp>
+
+	* tests/kakasi-8: libkakasi link test.
+
+	* configure.in: Update to new autotools (autoconf >= 2.50,
+	  libtool >= 2.4.2, automake >= 1.1).
+
+2013-10-17  NOKUBI Takatsugu  <knok@daionet.gr.jp>
+
+	* tests/kakasi-*: Adopt to POSIX shell.
+
+2013-02-20  NOKUBI Takatsugu  <knok@daionet.gr.jp>
+
+	* src/dict.c: Check stdint.h existence.
+	* configure.in: Add -Wno-unused-result option on gcc.
+
+2013-02-07  NOKUBI Takatsugu  <knok@daionet.gr.jp>
+
+	* src/kanjiio.c (getkanji,pututf8): Remove unused auto variable "l".
+	  Add to be silence unused-but-set warnings.
+	  "mask" is actually used in UTF8_COMPUTE macro.
+
+2013-02-06  NOKUBI Takatsugu  <knok@daionet.gr.jp>
+
+	* src/kakasi.c (output_yomi_eachkanji): Remove unused auto variable.
+
+2013-02-01  NOKUBI Takatsugu  <knok@daionet.gr.jp>
+
+	* src/dict.c (cellalloc): Fix pointer cast. Use uintptr_t.
+
+2013-01-31  NOKUBI Takatsugu  <knok@daionet.gr.jp>
+
+	* src/g2.c (g2j, g2a): Fix table index value.
+
+2013-01-21  NOKUBI Takatsugu  <knok@daionet.gr.jp>
+
+	* lib/makefile.msc.in: Add libleve.obj dependency.
+	  Reported by Susumu Tanimura, thank you.
+
+2010-12-17  NOKUBI Takatsugu  <knok@daionet.gr.jp>
+
+	* lib/Makefile.am : Fixed build error.
+	* lib/makefile.msc.in : Ditto.
+
+2007-11-01  NOKUBI Takatsugu  <knok@daionet.gr.jp>
+
+	* src/kanjiio.c : Fixed iconv_t handling.
+	* src/kakasi.c : Ditto.
+
+2007-10-31  NOKUBI Takatsugu  <knok@daionet.gr.jp>
+
+	* src/kanjiio.c : Fixed iconv_t handling (use NULL instead of -1).
+	* src/kanjiio.c : Added prototype definition of pututf8().
+	* src/kanji.c : Added a variable initialization.
+	* test/Makefile.am : Added env.sh for disribution file.
+	  (Reported by Tadamasa Teranishi, thank you)
+
+2007-10-23  NOKUBI Takatsugu  <knok@daionet.gr.jp>
+
+	* src/kanjiio.c (close_iconv): Added the function.
+	  (Reported by Tadamasa Teranishi, thank you)
+
+	* src/{atoc,rdic,wx2}-conv.c: Added close().
+	  (Reported and patched by Tadamasa Teranishi, thank you)
+
+2007-03-12  NOKUBI Takatsugu  <knok@daionet.gr.jp>
+
+	* src/itaiji.c (mkitaijitbl): Added workaround for AIX 5.3
+	  + Perl 5.8.2 issue.
+	  (Reported by tk_kuro, thank you)
+
+2006-09-21  NOKUBI Takatsugu  <knok@daionet.gr.jp>
+
+	* src/kakasi.c, src/hh2.c: Fixed KUTEN character missing bug on
+	  wakati mode.
+	  (Reported and patched by MORISHIMA Akitoshi, thank you).
+
+	* tests/kakasi-[567]: Added new test suites.
+	  (5 incomplete sequence, 6 utf8 support, 7 kuten on wakati check)
+
+	* tests/env.sh: Added dict environment setting.
+	
+	* tests/kakasi-* : Changed to use env.sh.
+
+2006-06-06  NOKUBI Takatsugu  <knok@daionet.gr.jp>
+
+	* src/mkkanwa.c (main): Fixed wrong arguments of usage().
+	  (Patched by Tadamasa Teranishi, thanks)
+
+2006-05-15  NOKUBI Takatsugu  <knok@daionet.gr.jp>
+
+	* src/{kk2,hh2}.c: Fixed opposite condition
+	* src/kakasi.c (kakasi_do): Ditto.
+
+2006-05-09  NOKUBI Takatsugu  <knok@daionet.gr.jp>
+
+	* src/kk2.c (K2H): Fixed odoriji handling.
+	* src/hh2.c (H2K): Ditto.
+	* src/kakasi.c (kakasi_do): Ditto.
+
+2006-04-18  NOKUBI Takatsugu  <knok@daionet.gr.jp>
+
+	* src/dict.c (add_item): Added special katakana check.
+
+2006-03-10  NOKUBI Takatsugu  <knok@daionet.gr.jp>
+
+	* src/k2.c (k2rom): Fixed "warning: array subscript out of range"
+	(ref: https://bugzilla.novell.com/show_bug.cgi?id=154848)
+	Reported by Mike Fabian, thanks.
+
+2006-01-04  NOKUBI Takatsugu  <knok@daionet.gr.jp>
+
+	* man/kakasi.1.ja : Removed the term "hoseidict".
+
+2004-10-01  NOKUBI Takatsugu  <knok@daionet.gr.jp>
+
+	* autogen.sh: Changed to check AC_PROG_LIBTOOL instead of 
+	  AM_PROG_LIBTOOL.
+
+	* configure.in (AM_INIT_AUTOMAKE): Bumped version number to 2.3.5pre1.
+
+2004-07-27  NOKUBI Takatsugu  <knok@daionet.gr.jp>
+
+	* src/kakasi.c: Added calling kakasi_close_kanwadict() after
+	  free_jisyo(). Reported by Shigeru Yoshino and fixed by
+	  Dan Kogai, thanks.
+
+2004-03-02  NOKUBI Takatsugu  <knok@daionet.gr.jp>
+
+	* configure.in: Added iconv checking.
+
+	* config.rpath: Copied from gettext 0.14.1.
+
+	* src/kanjiio.c (pututf8): Fixed location of a valiable definition.
+
+2004-02-26  NOKUBI Takatsugu  <knok@daionet.gr.jp>
+
+	* configure.in: Added --enable-utf8 option.
+
+	* src/kakasi.{c,h}: Added UTF8 support.
+
+	* src/kanjiio.c: Ditto.
+
+2004-02-05  NOKUBI Takatsugu  <knok@daionet.gr.jp>
+
+	* src/k2.c (k2rom): Fixed buffer overflow on buffer[].
+	(Reported by Andy Champ, thank you)
+
+2003-12-18  Yoshinori TAKESAKO  <takesako@namazu.org>
+
+	* src/{hh2.c,k2.c,kk2.c}: Applied kakasi-romaji-old.patch.
+	Old tables were renamed to *_k_table_old.
+	use_old_romaji_table variable and -t option 
+	became effective also to -rk option (romaji kunrei).
+
+2003-12-16  Yoshinori TAKESAKO  <takesako@namazu.org>
+	
+	* src/{hh2.c,k2.c,kk2.c}: Applied kakasi-romaji.patch.
+	Fixed some bad word translation at Romaji's table.
+	1. ssho -> ssyo (kakasi -Ha -Ka -rk)
+	2. tsu  -> tu   (kakasi -ka -rk)
+	3. tu   -> tsu  (kakasi -ka -rh)
+	(Contributed by Andreas Marcel Riechert, thank you so mush)
+	http://www.namazu.org/ml/kakasi-dev/msg00707.html
+
+2003-08-28  Yoshinori.TAKESAKO  <takesako@namazu.org>
+	
+	* src/{hh2.c,k2.c,kk2.c}: Fixed the following bug. Thanks for report.
+	libkakasi-ruby: can't detect option changes (Debian Bug #207330)
+	http://www.namazu.org/ml/kakasi-dev/msg00703.html
+
+	* src/kakasi.h: Defined the macro of UNINITIALIZED value.
+
+2003-03-12  NOKUBI Takatsugu  <knok@daionet.gr.jp>
+
+	* magic-kakasi: Added a magic(5) file for kanwadict.
+
+	* src/dict.c: Added endian independent dictionary format support.
+
+	* src/kakasi.h: Added the new dictionary format description.
+
+	* src/mkkanwa.c: Added the new dictionary format output.
+	(Contributed by UKAI Fumitoshi, thank you)
+
+	* src/ee2.c (E2alphabet): Fixed a bad word translation.
+	(Contributed by Andreas Marcel Riechert, thank you)
+
+2003-02-24  Ryuji Abe  <rug@namazu.org>
+
+	* man/Makefile.am (EXTRA_DIST): Add kakasi.cat files.
+
+2003-02-23  Hajime BABA  <baba.hajime@nifty.com>
+
+	* man/kakasi.1: Newly added (English version).
+	* man/kakasi.cat: Ditto.
+	* man/kakasi.1.ja: Moved and renamed from doc directory (Japanese).
+	* man/kakasi.cat.ja: Ditto.
+	* Makefile.am, configure.in: Edited for man directory.
+	* doc/kakasi.(1|cat): Moved man directory.
+	
+2002-12-12  NOKUBI Takatsugu  <knok@daionet.gr.jp>
+
+	* Merged from knok-2-3-4 branch. The commit provides
+	eachyomi_mode feature (see 2001-11-20).
+
+2002-12-07  Hajime BABA  <baba.hajime@nifty.com>
+
+	* src/kakasi.c: Newly added -F option for mutable parentheses
+	around furigana (with -JH -f or -L option).
+	* NEWS: Added an explanation of -F option.
+	* doc/kakasi.{1,cat}: ditto.
+	
+2002-12-07  Hajime BABA  <baba.hajime@nifty.com>
+
+	* doc/kakasi.1: Added descriptions about new options.
+	* doc/kakasi.cat: Re-made from updated kakasi.1.
+	
+2002-12-06  Hajime BABA  <baba.hajime@nifty.com>
+
+	* NEWS: Updated a description about 2.3.5.
+	
+2002-12-06  Hajime BABA  <baba.hajime@nifty.com>
+
+	* src/Makefile.am: Added level.c and level.h
+	* src/level.[ch]: Newly added to support level furigana and
+	hiragana mode.
+	* src/kakasi.[ch]: Added codes to support level furigana and
+	hiragana mode.
+	* doc/README.level: Documentation for level mode (in Japanese).
+	
+2002-10-26  Hajime BABA  <baba.hajime@nifty.com>
+
+	* src/kakasi.c: Fixed warning when defined LIBRARY.
+
+2002-10-26  Hajime BABA  <baba.hajime@nifty.com>
+
+	* src/{kakasi.c,kakasi.h,kanjiio.c}: Newly added -S option
+	for mutable separator (with -w or -s option).
+
+2002-10-26  Hajime BABA  <baba.hajime@nifty.com>
+
+	* src/kakasi.c: Added H2H in -Hx option.
+
+2002-10-26  Hajime BABA  <baba.hajime@nifty.com>
+
+	* src/{hh2.c,kakasi.c,kakasi.h}: Restructed codes around wo_mode.
+
+2002-10-07  NOKUBI Takatsugu  <knok@daionet.gr.jp>
+
+	* src/kanjiio.c (getkanji): Adapted for incomplete input sequence.
+	(Reported by GOTO Kentaro, thank you)
+
+2002-10-04  NOKUBI Takatsugu  <knok@daionet.gr.jp>
+
+	* src/kakasi.c (kakasi_do): Added explicit cast.
+	(Reported by Keita Maehara, http://bugs.debian.org/162890)
+
+	* src/{hh2,k2,kk2}.c: Added dhi/che support in hepburn table.
+
+	* tests/kakasi-4: Added.
+
+	* tests/kakasi-3: Added.
+
+	* tests/kakasi-2: Added.
+
+	* tests/*: Added a test script.
+
+2002-10-04  Hajime BABA  <baba.hajime@nifty.com>
+
+	* src/{hh2,k2,kk2}.c: Fixed warning of 'missing braces around
+	initializer'.
+
+2002-10-03  NOKUBI Takatsugu  <knok@daionet.gr.jp>
+
+	* src/k2.c: Fixed segfault on invalid SS2 sequences.
+	(Reported by GOTO Kentaro, thank you)
+
+	* src/{hh2,k2,kk2}.c: Fixed bad hepburn romaji table.
+	Old tables were renamed to *_h_table_old.
+	(Reported and contributed by Andreas Marchel Riechert, thank you)
+
+	* src/kakasi.{c,h}: Added use_old_romaji_table variable and
+	-t option.
+
+2002-10-02  NOKUBI Takatsugu  <knok@daionet.gr.jp>
+
+	* kakasi_do: Fixed returning unallocated memory area bug.
+	(Reported by GOTO Kentaro, thank you)
+
+	* kakasidict: Fixed a wrong entry.
+	(Reported by Andreas Marchel Riechert, thank you)
+
+2002-01-23  Hajime BABA  <hajime.baba@nao.ac.jp>
+
+	* src/kakasi.c (kakasi_do): Improved handling of japanese long-vowel.
+	(namazu-users-ja#2360)
+	
+2001-11-20  NOKUBI Takatsugu  <knok@daionet.gr.jp>
+
+	* src/kakasi.c: Added eachyomi_mode.
+
+	* configure.in: Enabled eachyomi_mode in default.
+
+2001-09-07  Ryuji Abe  <rug@namazu.org>
+
+	* Version 2.3.4 released.
+
+2001-09-03  Ryuji Abe  <rug@namazu.org>
+
+	[Following changes are derived from OHIRA Fumiaki's
+	 Mac OS X patch (kakasi-dev#287). Thanks.]
+	* src/kakasi.h (kanwa_entry): New struct.
+	(kanwa): Be extern.
+	(jisyo_table): Likewise.
+	(kanwa_load): Likewise.
+
+	* src/dict.c (kanwa): Move variable declarations from
+	dict.c.
+	(jisyo_table): Likewise.
+	(kanwa_load): Likewise.
+
+2001-09-02  Yoshinori.TAKESAKO  <takesako@namazu.org>
+
+	* src/kakasi.c (main): Changed the layout of Kakasi's help message 
+	a little.
+
+2001-08-27  Ryuji Abe  <rug@namazu.org>
+
+	[Applied takesako's patch.]
+	* lib/libkakasi.h (kakasi_free): New API for libkakasi.
+
+	* src/kakasi.c: Likewise.
+
+	* lib/kakasi.def: Sync with Win32 binary distribution.
+
+	* lib/makefile.msc.in: Likewise.
+
+	* lib/Makefile.am (libkakasi_la_LDFLAGS): Set -version-info
+	to 3:0:1.
+
+	* NEWS: More information updated.
+
+2001-08-09  Ryuji Abe  <rug@namazu.org>
+
+	* configure.in (AC_LIBTOOL_WIN32_DLL): Added as a comment.
+	(AC_PROG_LIBTOOL): Use instead of AM_PROG_LIBTOOL.
+
+2001-07-05  Yoshinori TAKESAKO  <takesako@namazu.org>
+
+	* NEWS: Updated a description about 2.3.4.
+
+2001-05-30  Yoshinori TAKESAKO  <takesako@namazu.org>
+
+	* src/hh2.c: Fixed the bug which the pronunciation of "pp" 
+	changes incorrectly with "bb", if a hiragana is converted 
+	into the Roman alphabet of KUNREI-formula (-Ha -rkunrei option).
+	(Reported and a patch contributed by Andreas Marcel Riechert)
+
+	*THANKS: Updated.
+
+2001-04-13  Ryuji Abe  <rug@namazu.org>
+
+	* NEWS: Added a description about 2.3.4.
+
+	* TODO: English documentations are wanted.
+
+2001-04-12  Yoshinori.TAKESAKO  <takesako@namazu.org>
+
+	* src/kakasi.c (main): Kakasi's help message could be displayed 
+	on general console screen of 80x25.
+
+	* AUTHORS: Updated.
+
+2001-04-12  Ryuji Abe  <rug@namazu.org>
+
+	* configure.in (AM_INIT_AUTOMAKE): Bumped version number to 2.3.4.
+
+	* src/jj2.c: Fixed indent.
+	
+2001-04-11  NOKUBI Takatsugu  <knok@daionet.gr.jp>
+
+	* src/kakasi.c (kakasi_do): Changed to return "" instead NULL
+	when to display unknown yomi of Kanji (-JH -p option).
+
+	* src/jj2.c (J2H): Fixed segfault bug when invoking with -w and
+	too long data (kakasi-dev#00208).
+
+2001-02-15  Yoshinori.TAKESAKO  <takesako@namazu.org>
+
+	* doc/README.lib: Fixed that unification of libkakasi's function 
+	name. And description mistake of a sample code was corrected. 
+
+2001-02-06  Yoshinori.TAKESAKO  <takesako@namazu.org>
+
+	* src/kakasi.c (kakasi_getopt_argv): Fixed the problem which is the 
+	fault of Text::Kakasi-1.04's test.pl (only-w) [kakasi-dev 00059].
+	It was made that input_term_type and output_term_type's values are 
+	initialized to UNKNOWN at the time of kakasi_getopt_argv() execution.
+
+2001-01-22  Ryuji Abe  <rug@namazu.org>
+
+	* Version 2.3.3 released.
+
+2001-01-21  Ryuji Abe  <rug@namazu.org>
+
+	* src/kakasi.c (digest): Applied Yoshinori.TAKESAKO's patch
+	for correcting the uniting rule of the operators.
+
+	* AUTHORS: Added new member Yoshinori.TAKESAKO.
+
+2001-01-18  Ryuji Abe  <rug@namazu.org>
+
+	* TODO: One bug fix has been done. 
+
+	* lib/libkakasi.h: Revert internal function declarations to old style
+	except setcharbuffer() and getpbstr().
+
+2001-01-17  Ryuji Abe  <rug@namazu.org>
+
+	* src/kakasi.c (digest): Applied Yoshinori.TAKESAKO's patch
+	for checking buffer overflow.
+
+	* THANKS: Updated.
+
+	* NEWS: Likewise.
+
+2001-01-16  Ryuji Abe  <rug@namazu.org>
+
+	[The function definition style of all KAKASI C source files
+	 has been changed.]
+
+	* src/kakasi.c [KAKASI_ATTR]: A new macro to simplify
+	source code.
+
+2001-01-15  Ryuji Abe  <rug@namazu.org>
+
+	* src/ee2.c: Includes config.h.
+
+	* src/hh2.c: Likewise.
+
+	* src/jj2.c: Likewise.
+
+	* src/k2.c: Likewise.
+
+	* src/kk2.c: Likewise.
+
+	* src/mkkanwa.c: Likewise.
+
+	* src/wx2-conv.c: Likewise.
+
+	* src/kakasi.c: Likewise.
+
+	* src/kakasi.h: Doesnt include config.h.
+
+	* src/mkkanwa.c [HAVE_STRING_H]: Includes <string.h>.
+	Otherwise, includes <strings.h>.
+
+	* src/dict.h: Likewise.
+
+	* src/hh2.c: Likewise.
+
+	* src/jj2.c: Likewise.
+
+	* src/k2.c: Likewise.
+
+	* src/kanjiio.c: Likewise.
+
+	* src/kk2.c: Likewise.
+
+	* src/wx2-conv.c: Likewise.
+
+	* src/mkkanwa.c: Includes <stdlib.h>.
+
+	* lib/Makefile.am (libkakasi_la_LDFLAGS): Set -version-info 2:3:0.
+
+	* TODO: Added "cleanup source code".
+
+2001-01-08  Ryuji Abe  <rug@namazu.org>
+
+	* src/kakasi.h [LIBRARY](putcharpbuf): Added a prototype
+	declaration.
+
+	* src/kakasi.c: Added local function decls. Includes <stdlib.h>.
+	[HAVE_MALLOC_H]: Includes <malloc.h>.
+
+2001-01-07  Ryuji Abe  <rug@namazu.org>
+
+	* src/kakasi.c (free_jisyo): Be static.
+
+	* THANKS: Updated.
+
+2001-01-05  Ryuji Abe  <rug@namazu.org>
+
+	* maintMakefile (cxref-lib): Target added.
+
+	* src/kanjiio.c [LIBRARY]: Include "libkakasi.h".
+
+2001-01-04  Ryuji Abe  <rug@namazu.org>
+
+	* lib/libkakasi.h: Added disclaimer about internal functions.
+
+	* src/kakasi.c: Added information about bug reports in help
+	message. 
+
+2001-01-03  Ryuji Abe  <rug@namazu.org>
+
+	* src/kakasi.h: This file merged jj2.h.
+
+	* src/jj2.h: Removed.
+
+	* src/dict.c: Removed '#include "jj2.h"'.
+
+	* src/jj2.c: Likewise.
+
+	* src/mkkanwa.c: Likewise.
+
+	* src/Makefile.am (noinst_HEADERS): Removed jj2.h.
+
+2000-12-30  Ryuji Abe  <rug@namazu.org>
+
+	* src/furigana.h: Removed because it is same content
+	as jj2.h and is not included from any files.
+
+	* src/kanji.h: Also removed unused include files.
+
+	* configure.in: Added gcc flags to output more warnings.
+
+	* src/kakasi.h: Fix prototype declarations.
+
+	* src/conv-util.h: Likewise.
+
+	* lib/libkakasi.h: Likewise.
+
+	* THANKS: Updated.
+
+2000-12-27  Ryuji Abe  <rug@namazu.org>
+
+	* kakasi-config.in: New file.
+
+	* configure.in (AC_OUTPUT): Generate kakasi-config.
+
+	* Makefile.am (bin_SCRIPTS): Added kakasi-config.
+
+2000-12-08  NOKUBI Takatsugu  <knok@daionet.gr.jp>
+
+	* NEWS: Added a description about 2.3.3.
+
+2000-12-07  NOKUBI Takatsugu  <knok@daionet.gr.jp>
+
+	* src/kakasi.c (free_jisyo): Implemented.
+
+2000-12-06  NOKUBI Takatsugu  <knok@daionet.gr.jp>
+
+	* src/kakasi.c (free_jisyo): Added the function (not implemented yet).
+
+	* configure.in: Version 2.3.3 (should be).
+
+2000-10-20  Satoru Takabayashi  <satoru-t@is.aist-nara.ac.jp>
+
+	* lib/Makefile.am (libkakasi_la_LDFLAGS): Add  -export-dynamic
+
+2000-08-20  NOKUBI Takatsugu  <knok@daionet.gr.jp>
+
+	* src/kanjiio.c: Applied performance probrem patch.
+	(contributed by Satoru Takabayashi.)
+
+Thu Apr 27 19:20:39 2000  Hajime BABA  <baba@kusastro.kyoto-u.ac.jp>
+
+	* Version 2.3.2 released.
+
+Thu Apr 27 11:32:24 2000  Ryuji Abe  <raeva@t3.rim.or.jp>
+
+	* Makefile.am (EXTRA_DIST): Revert to delete THANKS.
+	(because it is added DIST_COMMON in Makefile.in
+	automatically.)
+
+Thu Apr 27 10:56:54 2000  Ryuji Abe  <raeva@t3.rim.or.jp>
+
+	* AUTHORS: Edited. Originator and Members of KAKASI
+	Project (Maintainers) are listed.
+
+	* Makefile.am (EXTRA_DIST): Added THANKS.
+
+	* NEWS: Updated for next release.
+
+	* README: s/kakasi-dev@namazu.org/bug-kakasi@namazu.org/.
+
+	* README-ja: Likewise.
+
+	* THANKS: New File. List of Contributors.
+
+Wed Apr 26 12:25:29 2000  Ryuji Abe  <raeva@t3.rim.or.jp>
+
+	* TODO: Testsuite are wanted.
+
+Tue Apr 25 17:12:55 2000  Ryuji Abe  <raeva@t3.rim.or.jp>
+
+	* src/kakasi.c (kakasi_getopt_argv): Initialize
+	variables wakatigaki_mode, terminate_done, and
+	wo_mode. (Fixed the problem [kakasi-dev 00010].)
+
+Sat Apr 22 15:31:00 2000  Ryuji Abe  <raeva@t3.rim.or.jp>
+
+	* doc/kakasi.cat: Fixed typo.
+
+Mon Apr 17 23:09:00 2000  Ryuji Abe  <raeva@t3.rim.or.jp>
+
+	* doc/kakasi.1: Fixed typo.
+
+Thu Apr 13 14:59:17 2000  Hajime BABA  <baba@kusastro.kyoto-u.ac.jp>
+
+	* src/hh2.c: 'を' が消えてなくなるバグフィックス. [kakasi-dev 006]
+	* NEWS: ONEWS を見よ、と訂正。
+        * TODO: -JH オプションをつけると読めない漢字は表示しない件 [namazu-826]
+        * TODO: エラー処理 [namazu-dev 917]
+
+Sat Mar  4 13:04:00 2000  Ryuji Abe  <raeva@t3.rim.or.jp>
+
+	* configure.in (CFLAGS): Set -Wall -pedantic if gcc is used. 
+
+	* src/kakasi.c: Fixed variable declaration.
+
+	* src/kanjiio.c: Likewise.
+
+	* src/atoc-conv.c: Removed #ifdef __GNUC__.
+
+	* src/rdic-conv.c: Likewise.
+
+	* src/wx2-conv.c: Likewise.
+
+	* src/hh2.c: Removed #ifdef __BEOS__.
+
+	* src/jj2.c: Likewise.
+
+	* src/kk2.c: Likewise.
+
+	* src/dict.c: Likewise.
+
+	* src/atoc-conv.c: Likewise.
+
+	* src/rdic-conv.c: Likewise.
+
+	* src/wx2-conv.c: Likewise.
+
+	* src/mkkanwa.c: Do cast const char* in strlen(). 
+
+Sat Mar  4 10:41:29 2000  Ryuji Abe  <raeva@t3.rim.or.jp>
+
+	[Now all source use Id rcs tag instead of Header.] 
+
+	* configure.in (AM_INIT_AUTOMAKE): Bumped version number to 2.3.2.
+	(AM_MAINTAINER_MODE): Use.
+	(AC_OUTPUT): Added kakasi.spec.
+
+	* Makefile.am: Include maintMakefile if maintainer
+	mode is enabled.
+	(EXTRA_DIST): Added maintMakefile, kakasi.spec, and
+	kakasi.spec.in.
+	(kanwadict): Use test -f instead of test -e.
+	(dist-hook): Likewise.
+
+	* maintMakefile: New file.
+
+	* acinclude.m4: Removed.
+
+	* doc/ChangeLog.lib: EUC-JP encoding.
+
+	* doc/README.lib: Likewise.
+
+	* doc/README.OS2: Likewise.
+
+	* src/kanjiio.h: Include stdlib.h for malloc().
+
+	* src/mkkanwa.c(usage): Requires only one parameter.
+	(Thanks SUNAGAWA Keiki <Keiki_SUNAGAWA@yokogawa.co.jp>
+	for this patch.)
+
+	* src/kakasi.c: Fixed core dumped problem when no
+	parameter is given for kakasi -i.
+	(Thanks gotoken@math.sci.hokudai.ac.jp (GOTO Kentaro)
+	for this patch.)
+
+	[Also applied Ken-ichi Hirose's patch. Thanks.]
+
+	* src/dict.c: Include config.h which is needed.
+
+	* src/kanjiio.h: Likewise.
+
+	* src/itaiji.h: Include stdlib.h.
+
+Fri Oct 29 21:55:06 1999  Hajime BABA  <baba@kusastro.kyoto-u.ac.jp>
+
+	* バージョン 2.3.1 リリース。
+
+Fri Oct 29 11:36:18 1999  Ryuji Abe  <raeva@t3.rim.or.jp>
+
+	* lib/Makefile.am: Remove old lib*.c files before make symbolic-links.
+	
+Thu Oct 28 02:20:03 1999  Ryuji Abe  <raeva@t3.rim.or.jp>
+
+	* src/*.{c,h}: Fixed RCS tags. Snail mail address of FSF is 
+	now up-to-date.
+	* src/kakasi.c (RCS_ID): Removed.
+
+Tue Oct 26 16:26:46 1999  Hajime BABA  <baba@kusastro.kyoto-u.ac.jp>
+
+	* ONEWS: doc/orig/{ANNOUNCE,CHANGES} から ONEWS を生成
+	
+	* doc/orig/*: その他はファイル整理
+	
+	* TODO: 少し追加。
+	
+Tue Oct 19 18:54:04 1999  Ryuji Abe  <raeva@t3.rim.or.jp>
+	
+        * acinclude.m4 (mingw*  AC_PROG_LD): use tr for carriage return.
+        (This fix derived from libtool-1.3c that is available via CVS.
+         Contributed by Gary V. Vaughan <gary@oranda.demon.co.uk>.)
+
+Tue Oct 19 18:20:25 1999  Hajime BABA  <baba@kusastro.kyoto-u.ac.jp>
+
+	* AUTHORS: doc/CONTRIBUTORS から名前変更。
+	
+	* Makefile.am: kakasidict をパッケージに同梱することに
+	したのでそのように変更。また [namazu-dev 608] のバグを修正。
+
+	* TODO: いくつか追加。
+	
+	* kakasi.c (main): ライブラリ化部分のバグ修正。[namazu-dev 580]
+
+	* src/dict.c (add_jisyo)(init_kanwa),
+ 	src/itaiji.c (mkitaijitbl), src/mkkanwa.c (main):
+ 	fopen() の二番目の引数は "rb" or "wb" で統一。
+
+Tue Sep 28 20:15:04 1999  Hajime BABA  <baba@kusastro.kyoto-u.ac.jp>
+
+	* バージョン 2.3.0 リリース。
+	
+Mon Sep 27 22:08:29 1999  Hajime BABA  <baba@kusastro.kyoto-u.ac.jp>
+	
+	* 一般的な GNU ツールの作法に従い、辞書インストール位置を
+ 	/usr/local/lib/kakasi から /usr/local/share/kakasi に変更。
+
+Tue Aug 31 23:38:40 1999  Hajime BABA  <baba@kusastro.kyoto-u.ac.jp>
+
+	* 高橋氏より GPL に従うとの条件で再配布許可を頂く。
+	
+	* 分かち書きパッチ統合。
+	  (Hajime BABA <baba@kusastro.kyoto-u.ac.jp> 氏による)
+
+	* Windows 対応パッチ統合。
+	  (Ken-ichi Hirose <hirose@cp.neec.fc.nec.co.jp> 氏による)
+
+	* OS/2 対応パッチ統合。
+	  (Kaz SHiMZ <kshimz@sfc.co.jp> 氏による)
+
+	* BeOS 対応パッチ統合。
+	  (清水 照久 <teru@angel.ne.jp> 氏による)
+
+	* ライブラリ化パッチ統合。
+	  (NOKUBI Takatsugu <knok@daionet.gr.jp> 氏による)
+
+	* 環境変数利用パッチ統合。
+	  (Kaz SHiMZ <kshimz@sfc.co.jp> 氏による)
+
+	* GNU autoconf/automake/libtool を用い、configure 化。
+
+	* OS/2 対応のため、ファイル名を変更。
+	  (E2.c -> ee2.c など、大文字を小文字に置換)
+
+	* その他、マイナーなバグをフィックス。
+	

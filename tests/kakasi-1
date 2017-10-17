@@ -1,0 +1,49 @@
+#!/bin/sh
+#
+# test for encoding
+#   (require: GNU echo, GNU od)
+#
+# $Id: kakasi-1,v 1.5 2014-01-28 06:50:11 knok Exp $
+
+LOG=`pwd`/test-log
+echo '  *** starting ' $0 >> $LOG
+
+. ./env.sh
+
+od --version > /dev/null 2>&1
+STATUS=$?
+if [ "$STATUS" != 0 ]
+then
+    echo "not GNU od." >> $LOG
+    exit 77 # SKIP
+fi
+
+# "日本語の文字列"
+newjis='033 044 102 106 174 113 134 070 154 044 116 112 070 073 172 116 163 033 050 102 012'
+oldjis='033 044 100 106 174 113 134 070 154 044 116 112 070 073 172 116 163 033 050 112 012'
+euc='306 374 313 334 270 354 244 316 312 270 273 372 316 363 012'
+sjis='223 372 226 173 214 352 202 314 225 266 216 232 227 361 012'
+
+for i in newjis oldjis euc sjis
+do
+	for j in newjis oldjis euc sjis
+	do
+		echo "converting $i to $j" >> $LOG
+		input=`eval "echo $\`echo $i\`"`
+		expect=`eval "echo $\`echo $j\`"`
+		for x in $input
+		do
+			/bin/echo -n -e "\\$x"
+		done | ../src/kakasi -i$i -o$j > tmp
+		ret=`cat tmp|od -t oC -w80|head -1|sed -e 's/^0* //'`
+		if [ ! "x$ret" = "x$expect" ]
+		then
+			echo "unexpected result." >> $LOG
+			exit 1
+		fi
+	done
+done
+
+rm tmp
+
+exit 0

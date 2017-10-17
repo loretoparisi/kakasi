@@ -1,0 +1,33 @@
+#!/bin/sh
+#
+# test for wakatigaki with hiragana
+#
+# $Id: kakasi-9,v 1.2 2014-02-07 07:38:05 knok Exp $
+
+LOG=`pwd`/test-log
+echo '  *** starting ' $0 >> $LOG
+
+. ./env.sh
+
+INPUT=./data/hira-first-in.txt
+TMPOUT=./data/tmpout.txt
+EXPECT=./data/hira-first-out.txt
+
+clean() {
+    rm -f $TMPOUT
+}
+
+../src/kakasi -w -iutf8 -outf8 < $INPUT >$TMPOUT
+if cmp -s $TMPOUT $EXPECT
+then
+    echo "test passed." >> $LOG
+else
+    echo "test failed. the output was:" >> $LOG
+    cat $TMPOUT >> $LOG
+    clean
+    exit 1
+fi
+
+clean
+
+exit 0
