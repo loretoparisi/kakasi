@@ -7,11 +7,22 @@ Copyright (C) 1992-1999 Hironobu Takahashi. All rights reserved.
 
 Web site: http://kakasi.namazu.org/index.html.en
 
+## Disclaimer
+Porting by [Loreto Parisi](https://github.com/loretoparisi/kakasi/edit/master/README.md).
+
 ## Installation
 ```bash
 git clone https://github.com/loretoparisi/kakasi.git
 cd kakasi
 ./configure && make
+make install
+```
+
+## Installation to local folder
+```bash
+mkdir -p build
+./configure --prefix=$(PWD)/build
+make
 make install
 ```
 
